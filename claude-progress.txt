@@ -5,9 +5,42 @@
 [2026-03-28] Session Start
 - Read PRD.md and understood all 5 milestones.
 - Created harness files: feature_list.json, claude-progress.txt, init.sh
-- Starting Milestone 1: Harness Init & Git Setup
 
---- NEXT STEPS ---
-- Initialize Vite + React + Tailwind project
-- Set up Git repo and push to GitHub
-- Begin Milestone 2: UI Scaffold & SEO
+[2026-03-28] Milestone 1: COMPLETED
+- Scaffolded Vite + React project with Tailwind CSS v4
+- Initialized Git repo
+- Created GitHub repo via gh CLI: https://github.com/taeshin11/promptbuilder-ai
+- First commit & push successful
+
+[2026-03-28] Milestone 2: COMPLETED
+- Built responsive prompt builder UI with 8 categories
+- Full SEO: meta tags, OG tags, Twitter cards, JSON-LD structured data
+- Adsterra ad placeholders (top + bottom banners)
+- Custom favicon
+
+[2026-03-28] Milestone 3: COMPLETED
+- Prompt concatenation from user selections across all categories
+- Copy to Clipboard button with visual feedback
+- Custom input support per category
+- Negative prompts section
+- Aspect ratio selector
+- GoogleAppsScript.js created with full instructions
+- Webhook fetch POST integrated (silent, no-cors)
+
+[2026-03-28] Milestone 4: COMPLETED
+- Visitor counter (hits.sh) integrated in footer (Today + Total)
+- Mobile-first responsive design verified
+- Dark gradient theme with glassmorphism effects
+- Expandable/collapsible category sections
+
+[2026-03-28] Milestone 5: COMPLETED
+- Deployed to Vercel: https://promptbuilder-ai.vercel.app
+- GitHub repo connected for auto-deploys
+- Adsterra placeholders ready for key injection
+- Webhook URL placeholder ready for injection
+
+--- STATUS: ALL MILESTONES COMPLETED ---
+
+--- PENDING USER ACTION ---
+1. Create Adsterra ad unit and provide the script/key for injection
+2. Deploy GoogleAppsScript.js to Google Apps Script and provide the Webhook URL
