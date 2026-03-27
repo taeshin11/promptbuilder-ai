@@ -39,8 +39,8 @@
 - Adsterra placeholders ready for key injection
 - Webhook URL placeholder ready for injection
 
-[2026-03-28] Post-Milestone Improvements: COMPLETED
-- Added hero section with value proposition
+[2026-03-28] Improvements Round 1: COMPLETED
+- Hero section with value proposition
 - "Surprise Me" random prompt generator
 - Prompt history with localStorage (persists up to 50 prompts)
 - Keyboard shortcuts: Ctrl+Enter to copy, R to randomize
@@ -51,7 +51,21 @@
 - Image error handlers for visitor counter
 - Code review: 41 issues identified, critical ones fixed
 
---- STATUS: ALL MILESTONES + IMPROVEMENTS COMPLETED ---
+[2026-03-28] Improvements Round 2: COMPLETED
+- 8 curated prompt templates (Epic Fantasy, Cyberpunk, Landscape, etc.)
+- Platform-specific export (Midjourney, Stable Diffusion, DALL-E)
+- Smooth CSS animations with fade-in, stagger, slide-down
+- prefers-reduced-motion support
+- Custom dark-theme scrollbar
+
+[2026-03-28] Improvements Round 3: COMPLETED
+- Per-category weight/emphasis controls (Low/Normal/High/Max)
+- Platform-aware weight formatting (SD weighted tokens, MJ priority)
+- Shareable prompt URLs via base64-encoded query params
+- Share link button in prompt toolbar
+- Prompt writing tips section (6 educational articles, SEO-friendly)
+
+--- STATUS: ALL MILESTONES + 3 IMPROVEMENT ROUNDS COMPLETED ---
 
 --- PENDING USER ACTION ---
 1. Create Adsterra ad unit and provide the script/key for injection
