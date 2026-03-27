@@ -8,6 +8,7 @@ import PromptOutput from "./components/PromptOutput";
 import NegativePrompts from "./components/NegativePrompts";
 import AspectRatioSelector from "./components/AspectRatioSelector";
 import PromptHistory from "./components/PromptHistory";
+import PromptTips from "./components/PromptTips";
 import AdBanner from "./components/AdBanner";
 import Footer from "./components/Footer";
 import { promptCategories, negativePromptOptions, aspectRatios } from "./data/promptOptions";
@@ -24,12 +25,23 @@ function loadHistory() {
   }
 }
 
-function formatForPlatform(parts, aspectRatio, negatives, platform) {
+function loadFromURL() {
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const data = params.get("p");
+    if (data) return JSON.parse(atob(data));
+  } catch {
+    // invalid URL data
+  }
+  return null;
+}
+
+function formatForPlatform(parts, aspectRatio, negatives, platform, weights) {
   switch (platform) {
     case "stable-diffusion": {
-      const weighted = parts.map((p, i) => {
-        const weight = (1.4 - i * 0.05).toFixed(1);
-        return i < 3 ? `(${p}:${weight})` : p;
+      const weighted = parts.map(({ text, weight }) => {
+        const w = weight || 1.0;
+        return w !== 1.0 ? `(${text}:${w.toFixed(1)})` : text;
       });
       let prompt = weighted.join(", ");
       if (negatives.length > 0) {
@@ -38,7 +50,7 @@ function formatForPlatform(parts, aspectRatio, negatives, platform) {
       return prompt;
     }
     case "dall-e": {
-      let prompt = parts.join(", ");
+      let prompt = parts.map((p) => p.text).join(", ");
       if (negatives.length > 0) {
         prompt += `. Avoid: ${negatives.join(", ")}`;
       }
@@ -46,7 +58,16 @@ function formatForPlatform(parts, aspectRatio, negatives, platform) {
     }
     default: {
       // midjourney
-      let prompt = parts.join(", ");
+      const highWeightParts = [];
+      const normalParts = [];
+      parts.forEach(({ text, weight }) => {
+        if (weight >= 1.3) {
+          highWeightParts.push(text);
+        } else {
+          normalParts.push(text);
+        }
+      });
+      let prompt = [...highWeightParts, ...normalParts].join(", ");
       if (aspectRatio) prompt += ` ${aspectRatio}`;
       if (negatives.length > 0) prompt += ` --no ${negatives.join(", ")}`;
       return prompt;
@@ -62,6 +83,21 @@ function App() {
   const [copied, setCopied] = useState(false);
   const [history, setHistory] = useState(loadHistory);
   const [platform, setPlatform] = useState("midjourney");
+  const [weights, setWeights] = useState({});
+
+  // Load from shared URL on mount
+  useEffect(() => {
+    const urlData = loadFromURL();
+    if (urlData) {
+      if (urlData.s) setSelections(urlData.s);
+      if (urlData.a) setAspectRatio(urlData.a);
+      if (urlData.n) setNegatives(urlData.n);
+      if (urlData.w) setWeights(urlData.w);
+      if (urlData.pl) setPlatform(urlData.pl);
+      // Clear URL params after loading
+      window.history.replaceState({}, "", window.location.pathname);
+    }
+  }, []);
 
   useEffect(() => {
     try {
@@ -86,6 +122,10 @@ function App() {
     setCustomInputs((prev) => ({ ...prev, [categoryId]: value }));
   }, []);
 
+  const handleWeightChange = useCallback((categoryId, value) => {
+    setWeights((prev) => ({ ...prev, [categoryId]: value }));
+  }, []);
+
   const toggleNegative = useCallback((option) => {
     setNegatives((prev) =>
       prev.includes(option) ? prev.filter((n) => n !== option) : [...prev, option]
@@ -96,14 +136,15 @@ function App() {
     const parts = promptCategories
       .map((cat) => {
         const custom = customInputs[cat.id]?.trim();
-        if (custom) return custom;
-        return selections[cat.id] || null;
+        const text = custom || selections[cat.id] || null;
+        if (!text) return null;
+        return { text, weight: weights[cat.id] || 1.0 };
       })
       .filter(Boolean);
 
     if (parts.length === 0) return "";
-    return formatForPlatform(parts, aspectRatio, negatives, platform);
-  }, [selections, customInputs, negatives, aspectRatio, platform]);
+    return formatForPlatform(parts, aspectRatio, negatives, platform, weights);
+  }, [selections, customInputs, negatives, aspectRatio, platform, weights]);
 
   const handleCopy = useCallback(async () => {
     if (!prompt) return;
@@ -152,6 +193,7 @@ function App() {
     setCustomInputs({});
     setNegatives([]);
     setAspectRatio("");
+    setWeights({});
     setCopied(false);
   }, []);
 
@@ -165,6 +207,7 @@ function App() {
     });
     setSelections(newSelections);
     setCustomInputs({});
+    setWeights({});
 
     if (Math.random() > 0.5) {
       const idx = Math.floor(Math.random() * aspectRatios.length);
@@ -179,9 +222,20 @@ function App() {
     setCustomInputs({});
     setAspectRatio(template.aspectRatio || "");
     setNegatives(template.negatives || []);
+    setWeights({});
     setCopied(false);
     document.getElementById("prompt-output")?.scrollIntoView({ behavior: "smooth" });
   }, []);
+
+  const handleShare = useCallback(() => {
+    const data = { s: selections, a: aspectRatio, n: negatives, w: weights, pl: platform };
+    const encoded = btoa(JSON.stringify(data));
+    const url = `${window.location.origin}${window.location.pathname}?p=${encoded}`;
+
+    navigator.clipboard.writeText(url).catch(() => {});
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  }, [selections, aspectRatio, negatives, weights, platform]);
 
   const handleLoadFromHistory = useCallback((promptText) => {
     navigator.clipboard.writeText(promptText).catch(() => {});
@@ -210,6 +264,7 @@ function App() {
           onCopy={handleCopy}
           onReset={handleReset}
           onRandomize={handleRandomize}
+          onShare={handleShare}
           selectionCount={selectionCount}
         >
           <PlatformSelector selected={platform} onSelect={setPlatform} />
@@ -227,8 +282,10 @@ function App() {
                 category={category}
                 selected={selections[category.id]}
                 customValue={customInputs[category.id] || ""}
+                weight={weights[category.id] || 1.0}
                 onSelect={handleSelect}
                 onCustomInput={handleCustomInput}
+                onWeightChange={handleWeightChange}
                 defaultExpanded={index < 3}
               />
             </div>
@@ -249,6 +306,11 @@ function App() {
             selected={negatives}
             onToggle={toggleNegative}
           />
+        </div>
+
+        {/* Prompt Tips / SEO Content */}
+        <div className="mt-8">
+          <PromptTips />
         </div>
 
         {history.length > 0 && (

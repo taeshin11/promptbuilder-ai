@@ -1,10 +1,18 @@
 import { useState } from "react";
 
-function CategorySection({ category, selected, customValue, onSelect, onCustomInput, defaultExpanded = false }) {
+const WEIGHT_LEVELS = [
+  { label: "Low", value: 0.7, color: "text-slate-400 bg-slate-500/20" },
+  { label: "Normal", value: 1.0, color: "text-purple-300 bg-purple-500/20" },
+  { label: "High", value: 1.3, color: "text-amber-300 bg-amber-500/20" },
+  { label: "Max", value: 1.6, color: "text-red-300 bg-red-500/20" },
+];
+
+function CategorySection({ category, selected, customValue, onSelect, onCustomInput, weight, onWeightChange, defaultExpanded = false }) {
   const [isExpanded, setIsExpanded] = useState(defaultExpanded);
   const [showCustom, setShowCustom] = useState(false);
 
   const hasSelection = selected || customValue?.trim();
+  const currentWeight = WEIGHT_LEVELS.find((w) => w.value === weight) || WEIGHT_LEVELS[1];
 
   return (
     <section className="rounded-2xl bg-white/5 border border-white/10 overflow-hidden backdrop-blur-sm transition-all">
@@ -26,6 +34,11 @@ function CategorySection({ category, selected, customValue, onSelect, onCustomIn
           {hasSelection && (
             <span className="ml-2 px-2 py-0.5 rounded-full bg-purple-500/30 text-purple-300 text-xs font-medium truncate max-w-[150px] sm:max-w-[200px]">
               {customValue?.trim() ? `✏️ ${customValue.trim()}` : selected}
+            </span>
+          )}
+          {hasSelection && weight !== 1.0 && (
+            <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${currentWeight.color}`}>
+              {currentWeight.label}
             </span>
           )}
         </div>
@@ -73,6 +86,7 @@ function CategorySection({ category, selected, customValue, onSelect, onCustomIn
               + Custom
             </button>
           </div>
+
           {showCustom && (
             <div className="mt-3">
               <label htmlFor={`custom-${category.id}`} className="sr-only">
@@ -86,6 +100,32 @@ function CategorySection({ category, selected, customValue, onSelect, onCustomIn
                 onChange={(e) => onCustomInput(category.id, e.target.value)}
                 className="w-full px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm"
               />
+            </div>
+          )}
+
+          {/* Weight control - only visible when something is selected */}
+          {hasSelection && (
+            <div className="mt-3 flex items-center gap-2">
+              <span className="text-xs text-slate-500 shrink-0">Emphasis:</span>
+              <div className="flex gap-1">
+                {WEIGHT_LEVELS.map((w) => (
+                  <button
+                    type="button"
+                    key={w.value}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onWeightChange(category.id, w.value);
+                    }}
+                    className={`px-2 py-0.5 rounded text-xs font-medium transition-all ${
+                      weight === w.value
+                        ? w.color + " ring-1 ring-white/20"
+                        : "bg-white/5 text-slate-500 hover:bg-white/10 hover:text-slate-300"
+                    }`}
+                  >
+                    {w.label}
+                  </button>
+                ))}
+              </div>
             </div>
           )}
         </div>

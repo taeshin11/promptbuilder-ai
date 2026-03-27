@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-function PromptOutput({ prompt, copied, onCopy, onReset, onRandomize, selectionCount, children }) {
+function PromptOutput({ prompt, copied, onCopy, onReset, onRandomize, onShare, selectionCount, children }) {
   useEffect(() => {
     function handleKeyDown(e) {
       if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
@@ -40,6 +40,17 @@ function PromptOutput({ prompt, copied, onCopy, onReset, onRandomize, selectionC
             >
               🎲
             </button>
+            {prompt && (
+              <button
+                type="button"
+                onClick={onShare}
+                className="px-3 py-1.5 rounded-lg text-sm font-medium bg-white/10 text-slate-300 hover:bg-white/20 hover:text-white transition-all hidden sm:inline-flex"
+                aria-label="Share prompt via link"
+                title="Share link"
+              >
+                🔗
+              </button>
+            )}
             <button
               type="button"
               onClick={onReset}
