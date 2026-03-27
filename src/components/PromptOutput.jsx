@@ -1,6 +1,6 @@
-function PromptOutput({ prompt, copied, onCopy, onReset, selectionCount }) {
+function PromptOutput({ prompt, copied, onCopy, onReset, onRandomize, selectionCount }) {
   return (
-    <section className="sticky top-[73px] z-40 mt-6">
+    <section id="prompt-output" className="sticky top-[73px] z-40 mt-6">
       <div className="rounded-2xl bg-slate-900/90 border border-white/10 backdrop-blur-md p-4 sm:p-6 shadow-2xl">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
@@ -12,6 +12,14 @@ function PromptOutput({ prompt, copied, onCopy, onReset, selectionCount }) {
             )}
           </div>
           <div className="flex gap-2">
+            <button
+              onClick={onRandomize}
+              className="px-3 py-1.5 rounded-lg text-sm font-medium bg-white/10 text-slate-300 hover:bg-white/20 hover:text-white transition-all hidden sm:inline-flex"
+              aria-label="Generate random prompt"
+              title="Random"
+            >
+              🎲
+            </button>
             <button
               onClick={onReset}
               className="px-3 py-1.5 rounded-lg text-sm font-medium bg-white/10 text-slate-300 hover:bg-white/20 hover:text-white transition-all"

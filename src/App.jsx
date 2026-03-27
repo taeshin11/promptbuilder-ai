@@ -1,15 +1,26 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import Header from "./components/Header";
+import HeroSection from "./components/HeroSection";
 import CategorySection from "./components/CategorySection";
 import PromptOutput from "./components/PromptOutput";
 import NegativePrompts from "./components/NegativePrompts";
 import AspectRatioSelector from "./components/AspectRatioSelector";
+import PromptHistory from "./components/PromptHistory";
 import AdBanner from "./components/AdBanner";
 import Footer from "./components/Footer";
 import { promptCategories, negativePromptOptions, aspectRatios } from "./data/promptOptions";
 import "./index.css";
 
 const WEBHOOK_URL = "";
+const HISTORY_KEY = "promptbuilder_history";
+
+function loadHistory() {
+  try {
+    return JSON.parse(localStorage.getItem(HISTORY_KEY)) || [];
+  } catch {
+    return [];
+  }
+}
 
 function App() {
   const [selections, setSelections] = useState({});
@@ -17,6 +28,15 @@ function App() {
   const [negatives, setNegatives] = useState([]);
   const [aspectRatio, setAspectRatio] = useState("");
   const [copied, setCopied] = useState(false);
+  const [history, setHistory] = useState(loadHistory);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(HISTORY_KEY, JSON.stringify(history.slice(0, 50)));
+    } catch {
+      // storage full or unavailable
+    }
+  }, [history]);
 
   const handleSelect = useCallback((categoryId, option) => {
     setSelections((prev) => {
@@ -80,6 +100,11 @@ function App() {
       setTimeout(() => setCopied(false), 2000);
     }
 
+    setHistory((prev) => [
+      { prompt, timestamp: new Date().toISOString() },
+      ...prev.filter((h) => h.prompt !== prompt),
+    ]);
+
     if (WEBHOOK_URL) {
       try {
         await fetch(WEBHOOK_URL, {
@@ -106,6 +131,35 @@ function App() {
     setCopied(false);
   }, []);
 
+  const handleRandomize = useCallback(() => {
+    const newSelections = {};
+    promptCategories.forEach((cat) => {
+      if (Math.random() > 0.2) {
+        const idx = Math.floor(Math.random() * cat.options.length);
+        newSelections[cat.id] = cat.options[idx];
+      }
+    });
+    setSelections(newSelections);
+    setCustomInputs({});
+
+    if (Math.random() > 0.5) {
+      const idx = Math.floor(Math.random() * aspectRatios.length);
+      setAspectRatio(aspectRatios[idx].value);
+    } else {
+      setAspectRatio("");
+    }
+  }, []);
+
+  const handleLoadFromHistory = useCallback((promptText) => {
+    navigator.clipboard.writeText(promptText).catch(() => {});
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  }, []);
+
+  const handleClearHistory = useCallback(() => {
+    setHistory([]);
+  }, []);
+
   const prompt = buildPrompt();
   const selectionCount = Object.keys(selections).length + Object.values(customInputs).filter((v) => v?.trim()).length;
 
@@ -113,21 +167,21 @@ function App() {
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950 text-white">
       <Header />
 
-      {/* Top Ad Banner */}
       <AdBanner position="top" />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
-        {/* Prompt Output - sticky at top */}
+        <HeroSection onRandomize={handleRandomize} />
+
         <PromptOutput
           prompt={prompt}
           copied={copied}
           onCopy={handleCopy}
           onReset={handleReset}
+          onRandomize={handleRandomize}
           selectionCount={selectionCount}
         />
 
-        {/* Category Sections */}
-        <div className="space-y-6 mt-8">
+        <div className="space-y-4 mt-8">
           {promptCategories.map((category) => (
             <CategorySection
               key={category.id}
@@ -140,8 +194,7 @@ function App() {
           ))}
         </div>
 
-        {/* Aspect Ratio */}
-        <div className="mt-6">
+        <div className="mt-4">
           <AspectRatioSelector
             ratios={aspectRatios}
             selected={aspectRatio}
@@ -149,17 +202,25 @@ function App() {
           />
         </div>
 
-        {/* Negative Prompts */}
-        <div className="mt-6">
+        <div className="mt-4">
           <NegativePrompts
             options={negativePromptOptions}
             selected={negatives}
             onToggle={toggleNegative}
           />
         </div>
+
+        {history.length > 0 && (
+          <div className="mt-8">
+            <PromptHistory
+              history={history}
+              onLoad={handleLoadFromHistory}
+              onClear={handleClearHistory}
+            />
+          </div>
+        )}
       </main>
 
-      {/* Bottom Ad Banner */}
       <AdBanner position="bottom" />
 
       <Footer />
