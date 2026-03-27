@@ -11,7 +11,7 @@ function NegativePrompts({ options, selected, onToggle }) {
         aria-expanded={isExpanded}
       >
         <div className="flex items-center gap-3">
-          <span className="text-2xl">🚫</span>
+          <span className="text-2xl" role="img" aria-label="Negative prompts">🚫</span>
           <div className="text-left">
             <h2 className="text-lg font-semibold text-white">Negative Prompts</h2>
             <p className="text-sm text-slate-400 hidden sm:block">What to exclude from the image</p>
@@ -37,6 +37,7 @@ function NegativePrompts({ options, selected, onToggle }) {
           <div className="flex flex-wrap gap-2">
             {options.map((option) => (
               <button
+                type="button"
                 key={option}
                 onClick={() => onToggle(option)}
                 className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${

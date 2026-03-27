@@ -12,8 +12,7 @@ function Footer() {
             </p>
           </div>
 
-          {/* Visitor Counter */}
-          <div className="flex items-center gap-4 text-xs text-slate-500">
+          <div className="flex items-center gap-3 sm:gap-4 text-xs text-slate-500" aria-label="Visitor statistics">
             <div className="flex items-center gap-1">
               <span>Today:</span>
               <img
@@ -21,6 +20,7 @@ function Footer() {
                 alt="Today's visitors"
                 className="h-5 inline-block"
                 loading="lazy"
+                onError={(e) => { e.target.style.display = "none"; }}
               />
             </div>
             <div className="flex items-center gap-1">
@@ -30,6 +30,7 @@ function Footer() {
                 alt="Total visitors"
                 className="h-5 inline-block"
                 loading="lazy"
+                onError={(e) => { e.target.style.display = "none"; }}
               />
             </div>
           </div>

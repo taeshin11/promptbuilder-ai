@@ -182,7 +182,7 @@ function App() {
         />
 
         <div className="space-y-4 mt-8">
-          {promptCategories.map((category) => (
+          {promptCategories.map((category, index) => (
             <CategorySection
               key={category.id}
               category={category}
@@ -190,6 +190,7 @@ function App() {
               customValue={customInputs[category.id] || ""}
               onSelect={handleSelect}
               onCustomInput={handleCustomInput}
+              defaultExpanded={index < 3}
             />
           ))}
         </div>
