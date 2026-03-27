@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-function PromptOutput({ prompt, copied, onCopy, onReset, onRandomize, selectionCount }) {
+function PromptOutput({ prompt, copied, onCopy, onReset, onRandomize, selectionCount, children }) {
   useEffect(() => {
     function handleKeyDown(e) {
       if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
@@ -71,21 +71,24 @@ function PromptOutput({ prompt, copied, onCopy, onReset, onRandomize, selectionC
           aria-atomic="true"
         >
           {prompt ? (
-            <p className="text-slate-200">{prompt}</p>
+            <p className="text-slate-200 whitespace-pre-line">{prompt}</p>
           ) : (
             <p className="text-slate-600 italic">
               Select options from the categories below to build your AI image prompt...
             </p>
           )}
         </div>
-        {prompt && (
-          <div className="flex items-center justify-between mt-2 px-1">
-            <span className="text-xs text-slate-500">{charCount} characters</span>
-            <span className="text-xs text-slate-600 hidden sm:inline">
-              Ctrl+Enter to copy &middot; R to randomize
-            </span>
-          </div>
-        )}
+        <div className="flex items-center justify-between mt-3 px-1 flex-wrap gap-2">
+          <div>{children}</div>
+          {prompt && (
+            <div className="flex items-center gap-3">
+              <span className="text-xs text-slate-500">{charCount} chars</span>
+              <span className="text-xs text-slate-600 hidden sm:inline">
+                Ctrl+Enter to copy &middot; R to randomize
+              </span>
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );

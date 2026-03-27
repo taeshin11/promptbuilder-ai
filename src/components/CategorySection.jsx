@@ -41,7 +41,7 @@ function CategorySection({ category, selected, customValue, onSelect, onCustomIn
       </button>
 
       {isExpanded && (
-        <div id={`category-${category.id}`} className="px-4 sm:px-6 pb-4">
+        <div id={`category-${category.id}`} className="px-4 sm:px-6 pb-4 animate-slide-down">
           <div className="flex flex-wrap gap-2">
             {category.options.map((option) => (
               <button

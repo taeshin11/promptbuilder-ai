@@ -1,6 +1,6 @@
 function HeroSection({ onRandomize }) {
   return (
-    <section className="text-center py-8 sm:py-12">
+    <section className="text-center py-8 sm:py-12 animate-fade-in-up">
       <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
         <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-amber-400 bg-clip-text text-transparent">
           Build AI Image Prompts

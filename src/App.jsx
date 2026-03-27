@@ -1,6 +1,8 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useMemo } from "react";
 import Header from "./components/Header";
 import HeroSection from "./components/HeroSection";
+import TemplateSelector from "./components/TemplateSelector";
+import PlatformSelector from "./components/PlatformSelector";
 import CategorySection from "./components/CategorySection";
 import PromptOutput from "./components/PromptOutput";
 import NegativePrompts from "./components/NegativePrompts";
@@ -22,6 +24,36 @@ function loadHistory() {
   }
 }
 
+function formatForPlatform(parts, aspectRatio, negatives, platform) {
+  switch (platform) {
+    case "stable-diffusion": {
+      const weighted = parts.map((p, i) => {
+        const weight = (1.4 - i * 0.05).toFixed(1);
+        return i < 3 ? `(${p}:${weight})` : p;
+      });
+      let prompt = weighted.join(", ");
+      if (negatives.length > 0) {
+        prompt += `\nNegative prompt: ${negatives.join(", ")}`;
+      }
+      return prompt;
+    }
+    case "dall-e": {
+      let prompt = parts.join(", ");
+      if (negatives.length > 0) {
+        prompt += `. Avoid: ${negatives.join(", ")}`;
+      }
+      return prompt;
+    }
+    default: {
+      // midjourney
+      let prompt = parts.join(", ");
+      if (aspectRatio) prompt += ` ${aspectRatio}`;
+      if (negatives.length > 0) prompt += ` --no ${negatives.join(", ")}`;
+      return prompt;
+    }
+  }
+}
+
 function App() {
   const [selections, setSelections] = useState({});
   const [customInputs, setCustomInputs] = useState({});
@@ -29,6 +61,7 @@ function App() {
   const [aspectRatio, setAspectRatio] = useState("");
   const [copied, setCopied] = useState(false);
   const [history, setHistory] = useState(loadHistory);
+  const [platform, setPlatform] = useState("midjourney");
 
   useEffect(() => {
     try {
@@ -59,7 +92,7 @@ function App() {
     );
   }, []);
 
-  const buildPrompt = useCallback(() => {
+  const prompt = useMemo(() => {
     const parts = promptCategories
       .map((cat) => {
         const custom = customInputs[cat.id]?.trim();
@@ -68,21 +101,11 @@ function App() {
       })
       .filter(Boolean);
 
-    let prompt = parts.join(", ");
-
-    if (aspectRatio) {
-      prompt += ` ${aspectRatio}`;
-    }
-
-    if (negatives.length > 0) {
-      prompt += ` --no ${negatives.join(", ")}`;
-    }
-
-    return prompt;
-  }, [selections, customInputs, negatives, aspectRatio]);
+    if (parts.length === 0) return "";
+    return formatForPlatform(parts, aspectRatio, negatives, platform);
+  }, [selections, customInputs, negatives, aspectRatio, platform]);
 
   const handleCopy = useCallback(async () => {
-    const prompt = buildPrompt();
     if (!prompt) return;
 
     try {
@@ -101,7 +124,7 @@ function App() {
     }
 
     setHistory((prev) => [
-      { prompt, timestamp: new Date().toISOString() },
+      { prompt, timestamp: new Date().toISOString(), platform },
       ...prev.filter((h) => h.prompt !== prompt),
     ]);
 
@@ -114,6 +137,7 @@ function App() {
             prompt,
             timestamp: new Date().toISOString(),
             selections,
+            platform,
           }),
           mode: "no-cors",
         });
@@ -121,7 +145,7 @@ function App() {
         // silent fail for webhook
       }
     }
-  }, [buildPrompt, selections]);
+  }, [prompt, selections, platform]);
 
   const handleReset = useCallback(() => {
     setSelections({});
@@ -150,6 +174,15 @@ function App() {
     }
   }, []);
 
+  const handleApplyTemplate = useCallback((template) => {
+    setSelections(template.selections);
+    setCustomInputs({});
+    setAspectRatio(template.aspectRatio || "");
+    setNegatives(template.negatives || []);
+    setCopied(false);
+    document.getElementById("prompt-output")?.scrollIntoView({ behavior: "smooth" });
+  }, []);
+
   const handleLoadFromHistory = useCallback((promptText) => {
     navigator.clipboard.writeText(promptText).catch(() => {});
     setCopied(true);
@@ -160,7 +193,6 @@ function App() {
     setHistory([]);
   }, []);
 
-  const prompt = buildPrompt();
   const selectionCount = Object.keys(selections).length + Object.values(customInputs).filter((v) => v?.trim()).length;
 
   return (
@@ -179,19 +211,27 @@ function App() {
           onReset={handleReset}
           onRandomize={handleRandomize}
           selectionCount={selectionCount}
-        />
+        >
+          <PlatformSelector selected={platform} onSelect={setPlatform} />
+        </PromptOutput>
 
-        <div className="space-y-4 mt-8">
+        {/* Quick Templates */}
+        <div className="mt-6">
+          <TemplateSelector onApply={handleApplyTemplate} />
+        </div>
+
+        <div className="space-y-4 mt-6">
           {promptCategories.map((category, index) => (
-            <CategorySection
-              key={category.id}
-              category={category}
-              selected={selections[category.id]}
-              customValue={customInputs[category.id] || ""}
-              onSelect={handleSelect}
-              onCustomInput={handleCustomInput}
-              defaultExpanded={index < 3}
-            />
+            <div key={category.id} className={`animate-fade-in-up stagger-${index + 1}`}>
+              <CategorySection
+                category={category}
+                selected={selections[category.id]}
+                customValue={customInputs[category.id] || ""}
+                onSelect={handleSelect}
+                onCustomInput={handleCustomInput}
+                defaultExpanded={index < 3}
+              />
+            </div>
           ))}
         </div>
 
