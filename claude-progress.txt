@@ -1,0 +1,13 @@
+========================================
+ PromptBuilder AI - Progress Log
+========================================
+
+[2026-03-28] Session Start
+- Read PRD.md and understood all 5 milestones.
+- Created harness files: feature_list.json, claude-progress.txt, init.sh
+- Starting Milestone 1: Harness Init & Git Setup
+
+--- NEXT STEPS ---
+- Initialize Vite + React + Tailwind project
+- Set up Git repo and push to GitHub
+- Begin Milestone 2: UI Scaffold & SEO
