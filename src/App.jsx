@@ -11,6 +11,7 @@ import PromptHistory from "./components/PromptHistory";
 import PromptTips from "./components/PromptTips";
 import MoodPreview from "./components/MoodPreview";
 import BatchGenerator from "./components/BatchGenerator";
+import MidjourneyParams from "./components/MidjourneyParams";
 import FAQ from "./components/FAQ";
 import AdBanner from "./components/AdBanner";
 import Footer from "./components/Footer";
@@ -39,7 +40,7 @@ function loadFromURL() {
   return null;
 }
 
-function formatForPlatform(parts, aspectRatio, negatives, platform, weights) {
+function formatForPlatform(parts, aspectRatio, negatives, platform, weights, mjParams) {
   switch (platform) {
     case "stable-diffusion": {
       const weighted = parts.map(({ text, weight }) => {
@@ -72,6 +73,10 @@ function formatForPlatform(parts, aspectRatio, negatives, platform, weights) {
       });
       let prompt = [...highWeightParts, ...normalParts].join(", ");
       if (aspectRatio) prompt += ` ${aspectRatio}`;
+      if (mjParams?.version) prompt += ` ${mjParams.version}`;
+      if (mjParams?.stylize) prompt += ` ${mjParams.stylize}`;
+      if (mjParams?.chaos) prompt += ` ${mjParams.chaos}`;
+      if (mjParams?.sref?.trim()) prompt += ` --sref ${mjParams.sref.trim()}`;
       if (negatives.length > 0) prompt += ` --no ${negatives.join(", ")}`;
       return prompt;
     }
@@ -87,6 +92,10 @@ function App() {
   const [history, setHistory] = useState(loadHistory);
   const [platform, setPlatform] = useState("midjourney");
   const [weights, setWeights] = useState({});
+  const [mjVersion, setMjVersion] = useState("");
+  const [mjStylize, setMjStylize] = useState("");
+  const [mjChaos, setMjChaos] = useState("");
+  const [mjSref, setMjSref] = useState("");
 
   // Load from shared URL on mount
   useEffect(() => {
@@ -146,8 +155,9 @@ function App() {
       .filter(Boolean);
 
     if (parts.length === 0) return "";
-    return formatForPlatform(parts, aspectRatio, negatives, platform, weights);
-  }, [selections, customInputs, negatives, aspectRatio, platform, weights]);
+    const mjParams = platform === "midjourney" ? { version: mjVersion, stylize: mjStylize, chaos: mjChaos, sref: mjSref } : null;
+    return formatForPlatform(parts, aspectRatio, negatives, platform, weights, mjParams);
+  }, [selections, customInputs, negatives, aspectRatio, platform, weights, mjVersion, mjStylize, mjChaos, mjSref]);
 
   const handleCopy = useCallback(async () => {
     if (!prompt) return;
@@ -197,6 +207,10 @@ function App() {
     setNegatives([]);
     setAspectRatio("");
     setWeights({});
+    setMjVersion("");
+    setMjStylize("");
+    setMjChaos("");
+    setMjSref("");
     setCopied(false);
   }, []);
 
@@ -302,6 +316,21 @@ function App() {
             onSelect={setAspectRatio}
           />
         </div>
+
+        {platform === "midjourney" && (
+          <div className="mt-4">
+            <MidjourneyParams
+              version={mjVersion}
+              onVersionChange={setMjVersion}
+              stylize={mjStylize}
+              onStylizeChange={setMjStylize}
+              chaos={mjChaos}
+              onChaosChange={setMjChaos}
+              sref={mjSref}
+              onSrefChange={setMjSref}
+            />
+          </div>
+        )}
 
         <div className="mt-4">
           <NegativePrompts
