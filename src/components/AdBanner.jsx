@@ -1,14 +1,40 @@
+import { useEffect, useRef } from "react";
+
 function AdBanner({ position }) {
+  const adRef = useRef(null);
+  const loaded = useRef(false);
+
+  useEffect(() => {
+    if (loaded.current || !adRef.current) return;
+    loaded.current = true;
+
+    const script1 = document.createElement("script");
+    script1.innerHTML = `
+      atOptions = {
+        'key' : '0925cfdc1c7366772d97b8734d376aa8',
+        'format' : 'iframe',
+        'height' : 90,
+        'width' : 728,
+        'params' : {}
+      };
+    `;
+    adRef.current.appendChild(script1);
+
+    const script2 = document.createElement("script");
+    script2.src = "https://www.highperformanceformat.com/0925cfdc1c7366772d97b8734d376aa8/invoke.js";
+    script2.async = true;
+    adRef.current.appendChild(script2);
+  }, []);
+
   return (
     <div
       className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${position === "top" ? "mt-4" : "mb-4"}`}
       aria-label="Advertisement"
     >
-      <div className="rounded-xl bg-white/[0.03] border border-dashed border-white/[0.06] p-4 text-center min-h-[90px] flex items-center justify-center">
-        {/* ADSTERRA_AD_PLACEHOLDER: Replace this div with your Adsterra ad script */}
-        {/* Example: <script async="async" data-cfasync="false" src="//YOUR_ADSTERRA_URL"></script> */}
-        <p className="text-slate-600 text-xs">Ad Space — {position === "top" ? "Top Banner" : "Bottom Banner"}</p>
-      </div>
+      <div
+        ref={adRef}
+        className="rounded-xl overflow-hidden flex items-center justify-center min-h-[90px]"
+      />
     </div>
   );
 }
