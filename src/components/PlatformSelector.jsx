@@ -30,8 +30,8 @@ function PlatformSelector({ selected, onSelect }) {
           onClick={() => onSelect(platform.id)}
           className={`px-3 py-1 rounded-lg text-xs font-medium transition-all flex items-center gap-1.5 ${
             selected === platform.id
-              ? "bg-purple-500/30 text-purple-300 border border-purple-500/50"
-              : "bg-white/10 text-slate-400 hover:bg-white/20 hover:text-white"
+              ? "bg-indigo-500/20 text-indigo-300 border border-indigo-500/30"
+              : "bg-white/[0.06] text-slate-400 hover:bg-white/[0.1] hover:text-white"
           }`}
           title={platform.description}
         >

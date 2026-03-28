@@ -2,7 +2,7 @@ import { useState } from "react";
 
 const WEIGHT_LEVELS = [
   { label: "Low", value: 0.7, color: "text-slate-400 bg-slate-500/20" },
-  { label: "Normal", value: 1.0, color: "text-purple-300 bg-purple-500/20" },
+  { label: "Normal", value: 1.0, color: "text-indigo-300 bg-indigo-500/15" },
   { label: "High", value: 1.3, color: "text-amber-300 bg-amber-500/20" },
   { label: "Max", value: 1.6, color: "text-red-300 bg-red-500/20" },
 ];
@@ -15,7 +15,7 @@ function CategorySection({ category, selected, customValue, onSelect, onCustomIn
   const currentWeight = WEIGHT_LEVELS.find((w) => w.value === weight) || WEIGHT_LEVELS[1];
 
   return (
-    <section className="rounded-2xl bg-white/5 border border-white/10 overflow-hidden backdrop-blur-sm transition-all">
+    <section className="rounded-2xl bg-white/[0.03] border border-white/[0.06] overflow-hidden backdrop-blur-sm transition-all">
       <button
         type="button"
         onClick={() => setIsExpanded(!isExpanded)}
@@ -32,7 +32,7 @@ function CategorySection({ category, selected, customValue, onSelect, onCustomIn
             <p className="text-sm text-slate-400 hidden sm:block">{category.description}</p>
           </div>
           {hasSelection && (
-            <span className="ml-2 px-2 py-0.5 rounded-full bg-purple-500/30 text-purple-300 text-xs font-medium truncate max-w-[150px] sm:max-w-[200px]">
+            <span className="ml-2 px-2 py-0.5 rounded-full bg-indigo-500/15 text-indigo-300 text-xs font-medium truncate max-w-[150px] sm:max-w-[200px]">
               {customValue?.trim() ? `✏️ ${customValue.trim()}` : selected}
             </span>
           )}
@@ -67,8 +67,8 @@ function CategorySection({ category, selected, customValue, onSelect, onCustomIn
                 }}
                 className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
                   selected === option && !customValue?.trim()
-                    ? "bg-purple-500 text-white shadow-lg shadow-purple-500/25 scale-105"
-                    : "bg-white/10 text-slate-300 hover:bg-white/20 hover:text-white"
+                    ? "bg-indigo-600 text-white shadow-md scale-105"
+                    : "bg-white/[0.06] text-slate-400 hover:bg-white/[0.1] hover:text-slate-200"
                 }`}
               >
                 {option}
@@ -79,7 +79,7 @@ function CategorySection({ category, selected, customValue, onSelect, onCustomIn
               onClick={() => setShowCustom(!showCustom)}
               className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all border border-dashed ${
                 showCustom
-                  ? "border-purple-500 text-purple-400"
+                  ? "border-indigo-500/50 text-indigo-400"
                   : "border-white/20 text-slate-400 hover:border-white/40 hover:text-white"
               }`}
             >
@@ -98,7 +98,7 @@ function CategorySection({ category, selected, customValue, onSelect, onCustomIn
                 placeholder={`Type your own ${category.label.toLowerCase()}...`}
                 value={customValue}
                 onChange={(e) => onCustomInput(category.id, e.target.value)}
-                className="w-full px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm"
+                className="w-full px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm"
               />
             </div>
           )}

@@ -2,7 +2,7 @@ import { promptTemplates } from "../data/promptTemplates";
 
 function TemplateSelector({ onApply }) {
   return (
-    <section className="rounded-2xl bg-white/5 border border-white/10 overflow-hidden backdrop-blur-sm">
+    <section className="rounded-2xl bg-white/[0.03] border border-white/[0.06] overflow-hidden backdrop-blur-sm">
       <div className="px-4 sm:px-6 py-4">
         <div className="flex items-center gap-3 mb-3">
           <span className="text-2xl" role="img" aria-label="Templates">🎬</span>
@@ -17,11 +17,11 @@ function TemplateSelector({ onApply }) {
               type="button"
               key={template.id}
               onClick={() => onApply(template)}
-              className="group p-3 rounded-xl bg-white/5 border border-white/10 hover:border-purple-500/40 hover:bg-purple-500/10 transition-all text-left"
+              className="group p-3 rounded-xl bg-white/[0.03] border border-white/[0.06] hover:border-indigo-500/30 hover:bg-indigo-500/10 transition-all text-left"
             >
               <div className="flex items-center gap-2 mb-1">
                 <span className="text-lg">{template.emoji}</span>
-                <span className="text-sm font-semibold text-white group-hover:text-purple-300 transition-colors truncate">
+                <span className="text-sm font-semibold text-white group-hover:text-indigo-300 transition-colors truncate">
                   {template.name}
                 </span>
               </div>

@@ -20,12 +20,12 @@ function PromptOutput({ prompt, copied, onCopy, onReset, onRandomize, onShare, s
 
   return (
     <section id="prompt-output" className="sticky top-[73px] z-40 mt-6">
-      <div className="rounded-2xl bg-slate-900/90 border border-white/10 backdrop-blur-md p-4 sm:p-6 shadow-2xl">
+      <div className="rounded-2xl bg-[#151721]/95 border border-white/[0.06] backdrop-blur-md p-4 sm:p-6 shadow-xl">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2 flex-wrap">
             <h2 className="text-lg font-semibold text-white">Generated Prompt</h2>
             {selectionCount > 0 && (
-              <span className="px-2 py-0.5 rounded-full bg-purple-500/30 text-purple-300 text-xs font-medium">
+              <span className="px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 text-xs font-medium">
                 {selectionCount} selected
               </span>
             )}
@@ -34,7 +34,7 @@ function PromptOutput({ prompt, copied, onCopy, onReset, onRandomize, onShare, s
             <button
               type="button"
               onClick={onRandomize}
-              className="px-3 py-1.5 rounded-lg text-sm font-medium bg-white/10 text-slate-300 hover:bg-white/20 hover:text-white transition-all hidden sm:inline-flex"
+              className="px-3 py-1.5 rounded-lg text-sm font-medium bg-white/[0.06] text-slate-300 hover:bg-white/[0.1] hover:text-white transition-all hidden sm:inline-flex"
               aria-label="Generate random prompt (press R)"
               title="Random (R)"
             >
@@ -44,7 +44,7 @@ function PromptOutput({ prompt, copied, onCopy, onReset, onRandomize, onShare, s
               <button
                 type="button"
                 onClick={onShare}
-                className="px-3 py-1.5 rounded-lg text-sm font-medium bg-white/10 text-slate-300 hover:bg-white/20 hover:text-white transition-all hidden sm:inline-flex"
+                className="px-3 py-1.5 rounded-lg text-sm font-medium bg-white/[0.06] text-slate-300 hover:bg-white/[0.1] hover:text-white transition-all hidden sm:inline-flex"
                 aria-label="Share prompt via link"
                 title="Share link"
               >
@@ -54,7 +54,7 @@ function PromptOutput({ prompt, copied, onCopy, onReset, onRandomize, onShare, s
             <button
               type="button"
               onClick={onReset}
-              className="px-3 py-1.5 rounded-lg text-sm font-medium bg-white/10 text-slate-300 hover:bg-white/20 hover:text-white transition-all"
+              className="px-3 py-1.5 rounded-lg text-sm font-medium bg-white/[0.06] text-slate-300 hover:bg-white/[0.1] hover:text-white transition-all"
               aria-label="Reset all selections"
             >
               Reset
@@ -67,8 +67,8 @@ function PromptOutput({ prompt, copied, onCopy, onReset, onRandomize, onShare, s
                 copied
                   ? "bg-green-500 text-white"
                   : prompt
-                    ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:shadow-lg hover:shadow-purple-500/25 hover:scale-105"
-                    : "bg-white/10 text-slate-500 cursor-not-allowed"
+                    ? "bg-indigo-600 text-white hover:bg-indigo-500 hover:scale-105"
+                    : "bg-white/[0.06] text-slate-500 cursor-not-allowed"
               }`}
               aria-label={`Copy prompt to clipboard${prompt ? " (Ctrl+Enter)" : ""}`}
             >
@@ -77,7 +77,7 @@ function PromptOutput({ prompt, copied, onCopy, onReset, onRandomize, onShare, s
           </div>
         </div>
         <div
-          className="min-h-[60px] rounded-xl bg-black/30 border border-white/10 p-4 text-sm leading-relaxed"
+          className="min-h-[60px] rounded-xl bg-black/20 border border-white/[0.06] p-4 text-sm leading-relaxed"
           aria-live="polite"
           aria-atomic="true"
         >

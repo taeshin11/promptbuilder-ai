@@ -31,11 +31,11 @@ function PromptTips() {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <section className="rounded-2xl bg-white/5 border border-white/10 overflow-hidden backdrop-blur-sm">
+    <section className="rounded-2xl bg-white/[0.03] border border-white/[0.06] overflow-hidden backdrop-blur-sm">
       <button
         type="button"
         onClick={() => setIsExpanded(!isExpanded)}
-        className="w-full px-4 sm:px-6 py-4 flex items-center justify-between hover:bg-white/5 transition-colors"
+        className="w-full px-4 sm:px-6 py-4 flex items-center justify-between hover:bg-white/[0.03] transition-colors"
         aria-expanded={isExpanded}
       >
         <div className="flex items-center gap-3">
@@ -60,8 +60,8 @@ function PromptTips() {
         <div className="px-4 sm:px-6 pb-6 animate-slide-down">
           <div className="grid gap-4 sm:grid-cols-2">
             {tips.map((tip) => (
-              <article key={tip.title} className="p-4 rounded-xl bg-black/20 border border-white/5">
-                <h3 className="text-sm font-semibold text-purple-300 mb-2">{tip.title}</h3>
+              <article key={tip.title} className="p-4 rounded-xl bg-black/20 border border-white/[0.04]">
+                <h3 className="text-sm font-semibold text-indigo-300 mb-2">{tip.title}</h3>
                 <p className="text-xs text-slate-400 leading-relaxed">{tip.content}</p>
               </article>
             ))}

@@ -39,7 +39,7 @@ function FAQ() {
   const [openIdx, setOpenIdx] = useState(null);
 
   return (
-    <section className="rounded-2xl bg-white/5 border border-white/10 overflow-hidden backdrop-blur-sm">
+    <section className="rounded-2xl bg-white/[0.03] border border-white/[0.06] overflow-hidden backdrop-blur-sm">
       <div className="px-4 sm:px-6 py-4">
         <div className="flex items-center gap-3 mb-4">
           <span className="text-2xl" role="img" aria-label="FAQ">❓</span>
@@ -51,11 +51,11 @@ function FAQ() {
 
         <div className="space-y-2">
           {faqs.map((faq, i) => (
-            <div key={i} className="rounded-xl bg-black/20 border border-white/5 overflow-hidden">
+            <div key={i} className="rounded-xl bg-black/20 border border-white/[0.04] overflow-hidden">
               <button
                 type="button"
                 onClick={() => setOpenIdx(openIdx === i ? null : i)}
-                className="w-full px-4 py-3 flex items-center justify-between text-left hover:bg-white/5 transition-colors"
+                className="w-full px-4 py-3 flex items-center justify-between text-left hover:bg-white/[0.03] transition-colors"
                 aria-expanded={openIdx === i}
               >
                 <span className="text-sm font-medium text-slate-200 pr-4">{faq.q}</span>

@@ -253,7 +253,7 @@ function App() {
   const selectionCount = Object.keys(selections).length + Object.values(customInputs).filter((v) => v?.trim()).length;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950 text-white">
+    <div className="min-h-screen bg-gradient-to-b from-[#0f1117] via-[#131520] to-[#0f1117] text-white">
       <Header />
 
       <AdBanner position="top" />

@@ -63,7 +63,7 @@ function BatchGenerator({ selections, customInputs, platform, onCopyAll }) {
   if (!hasSelections) return null;
 
   return (
-    <section className="rounded-2xl bg-white/5 border border-white/10 overflow-hidden backdrop-blur-sm mt-6">
+    <section className="rounded-2xl bg-white/[0.03] border border-white/[0.06] overflow-hidden backdrop-blur-sm mt-6">
       <div className="px-4 sm:px-6 py-4">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-3">
@@ -81,7 +81,7 @@ function BatchGenerator({ selections, customInputs, platform, onCopyAll }) {
                 className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
                   copiedIdx === -1
                     ? "bg-green-500 text-white"
-                    : "bg-white/10 text-slate-300 hover:bg-white/20"
+                    : "bg-white/[0.06] text-slate-300 hover:bg-white/[0.1]"
                 }`}
               >
                 {copiedIdx === -1 ? "Copied All!" : "Copy All"}
@@ -90,7 +90,7 @@ function BatchGenerator({ selections, customInputs, platform, onCopyAll }) {
             <button
               type="button"
               onClick={generateVariations}
-              className="px-4 py-1.5 rounded-lg text-sm font-semibold bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:shadow-lg hover:shadow-purple-500/25 transition-all"
+              className="px-4 py-1.5 rounded-lg text-sm font-semibold bg-indigo-600 text-white hover:bg-indigo-500 transition-all"
             >
               {variations.length > 0 ? "Regenerate" : "Generate 5 Variations"}
             </button>
@@ -102,7 +102,7 @@ function BatchGenerator({ selections, customInputs, platform, onCopyAll }) {
             {variations.map((v, i) => (
               <div
                 key={i}
-                className="flex items-start gap-2 p-3 rounded-xl bg-black/20 border border-white/5 group hover:border-purple-500/30 transition-all"
+                className="flex items-start gap-2 p-3 rounded-xl bg-black/20 border border-white/[0.04] group hover:border-indigo-500/20 transition-all"
               >
                 <span className="text-xs text-slate-600 font-mono shrink-0 mt-0.5">#{i + 1}</span>
                 <p className="text-sm text-slate-300 flex-1">{v}</p>
@@ -112,7 +112,7 @@ function BatchGenerator({ selections, customInputs, platform, onCopyAll }) {
                   className={`shrink-0 px-2 py-1 rounded-lg text-xs font-medium transition-all ${
                     copiedIdx === i
                       ? "bg-green-500/30 text-green-300"
-                      : "bg-purple-500/20 text-purple-300 opacity-0 group-hover:opacity-100 hover:bg-purple-500/40"
+                      : "bg-indigo-500/15 text-indigo-300 opacity-0 group-hover:opacity-100 hover:bg-indigo-500/30"
                   }`}
                 >
                   {copiedIdx === i ? "Copied!" : "Copy"}

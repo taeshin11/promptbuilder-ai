@@ -1,6 +1,6 @@
 function AspectRatioSelector({ ratios, selected, onSelect }) {
   return (
-    <section className="rounded-2xl bg-white/5 border border-white/10 overflow-hidden backdrop-blur-sm">
+    <section className="rounded-2xl bg-white/[0.03] border border-white/[0.06] overflow-hidden backdrop-blur-sm">
       <div className="px-4 sm:px-6 py-4">
         <div className="flex items-center gap-3 mb-3">
           <span className="text-2xl" role="img" aria-label="Aspect ratio">📐</span>
@@ -17,8 +17,8 @@ function AspectRatioSelector({ ratios, selected, onSelect }) {
               onClick={() => onSelect(selected === ratio.value ? "" : ratio.value)}
               className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
                 selected === ratio.value
-                  ? "bg-purple-500 text-white shadow-lg shadow-purple-500/25"
-                  : "bg-white/10 text-slate-300 hover:bg-white/20 hover:text-white"
+                  ? "bg-indigo-600 text-white"
+                  : "bg-white/[0.06] text-slate-300 hover:bg-white/[0.1] hover:text-white"
               }`}
             >
               {ratio.label}
