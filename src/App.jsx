@@ -9,6 +9,9 @@ import NegativePrompts from "./components/NegativePrompts";
 import AspectRatioSelector from "./components/AspectRatioSelector";
 import PromptHistory from "./components/PromptHistory";
 import PromptTips from "./components/PromptTips";
+import MoodPreview from "./components/MoodPreview";
+import BatchGenerator from "./components/BatchGenerator";
+import FAQ from "./components/FAQ";
 import AdBanner from "./components/AdBanner";
 import Footer from "./components/Footer";
 import { promptCategories, negativePromptOptions, aspectRatios } from "./data/promptOptions";
@@ -308,9 +311,24 @@ function App() {
           />
         </div>
 
+        {/* Visual mood preview */}
+        <MoodPreview mood={selections.mood} color={selections.color} />
+
+        {/* Batch variations generator */}
+        <BatchGenerator
+          selections={selections}
+          customInputs={customInputs}
+          platform={platform}
+        />
+
         {/* Prompt Tips / SEO Content */}
         <div className="mt-8">
           <PromptTips />
+        </div>
+
+        {/* FAQ with structured data for SEO */}
+        <div className="mt-4">
+          <FAQ />
         </div>
 
         {history.length > 0 && (
