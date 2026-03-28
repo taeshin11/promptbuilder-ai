@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function Header() {
   return (
     <header className="border-b border-white/[0.06] backdrop-blur-md bg-[#0f1117]/80 sticky top-0 z-50">
@@ -5,7 +7,7 @@ function Header() {
         Skip to prompt builder
       </a>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-        <a href="/" className="flex items-center gap-3 group">
+        <Link to="/" className="flex items-center gap-3 group">
           <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center text-xl font-bold shadow-md group-hover:scale-105 transition-transform">
             P
           </div>
@@ -15,8 +17,20 @@ function Header() {
             </h1>
             <p className="text-xs text-slate-500 hidden sm:block">AI Image Prompt Generator</p>
           </div>
-        </a>
+        </Link>
         <nav className="flex items-center gap-4" aria-label="Main navigation">
+          <Link
+            to="/about"
+            className="text-slate-500 hover:text-slate-300 transition-colors text-sm hidden sm:inline"
+          >
+            About
+          </Link>
+          <Link
+            to="/how-to-use"
+            className="text-slate-500 hover:text-slate-300 transition-colors text-sm hidden sm:inline"
+          >
+            Guide
+          </Link>
           <a
             href="https://github.com/taeshin11/promptbuilder-ai"
             target="_blank"

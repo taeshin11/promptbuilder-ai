@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect, useMemo } from "react";
-import Header from "./components/Header";
+import { Helmet } from "react-helmet-async";
 import HeroSection from "./components/HeroSection";
 import TemplateSelector from "./components/TemplateSelector";
 import PlatformSelector from "./components/PlatformSelector";
@@ -13,8 +13,6 @@ import MoodPreview from "./components/MoodPreview";
 import BatchGenerator from "./components/BatchGenerator";
 import MidjourneyParams from "./components/MidjourneyParams";
 import FAQ from "./components/FAQ";
-import AdBanner from "./components/AdBanner";
-import Footer from "./components/Footer";
 import { promptCategories, negativePromptOptions, aspectRatios } from "./data/promptOptions";
 import "./index.css";
 
@@ -267,11 +265,12 @@ function App() {
   const selectionCount = Object.keys(selections).length + Object.values(customInputs).filter((v) => v?.trim()).length;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0f1117] via-[#131520] to-[#0f1117] text-white">
-      <Header />
-
-      <AdBanner position="top" />
-
+    <>
+      <Helmet>
+        <title>PromptBuilder AI - Free AI Image Prompt Generator for Midjourney & Stable Diffusion</title>
+        <meta name="description" content="Free AI image prompt generator. Build perfect prompts for Midjourney, Stable Diffusion, and DALL-E with an intuitive visual builder. No sign-up required." />
+        <meta name="keywords" content="AI image prompt generator, Midjourney prompt builder, Stable Diffusion prompts, DALL-E prompt tool, free AI art generator, prompt engineering tool" />
+      </Helmet>
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
         <HeroSection onRandomize={handleRandomize} />
 
@@ -370,11 +369,7 @@ function App() {
           </div>
         )}
       </main>
-
-      <AdBanner position="bottom" />
-
-      <Footer />
-    </div>
+    </>
   );
 }
 
