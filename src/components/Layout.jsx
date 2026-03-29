@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import AdBanner from "./AdBanner";
 import Footer from "./Footer";
+import FeedbackButton from "./FeedbackButton";
 import ScrollToTop from "./ScrollToTop";
 
 function Layout() {
@@ -15,6 +16,7 @@ function Layout() {
       </div>
       <AdBanner position="bottom" />
       <Footer />
+      <FeedbackButton />
     </div>
   );
 }

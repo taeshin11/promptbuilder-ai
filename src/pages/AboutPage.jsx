@@ -130,12 +130,30 @@ function AboutPage() {
           <div className="mt-12 p-6 rounded-2xl bg-gradient-to-r from-indigo-500/10 to-violet-500/10 border border-indigo-500/20 text-center">
             <h3 className="text-xl font-semibold text-white mb-3">Ready to Create Something Amazing?</h3>
             <p className="text-slate-400 mb-5">Start building your perfect AI image prompt in seconds — no sign-up required.</p>
-            <Link
-              to="/"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-violet-500 text-white font-semibold hover:from-indigo-400 hover:to-violet-400 transition-all shadow-lg"
-            >
-              Open Prompt Builder
-            </Link>
+            <div className="flex items-center justify-center gap-3 flex-wrap">
+              <Link
+                to="/"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-violet-500 text-white font-semibold hover:from-indigo-400 hover:to-violet-400 transition-all shadow-lg"
+              >
+                Open Prompt Builder
+              </Link>
+              <Link
+                to="/gallery"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/[0.07] text-slate-300 font-medium hover:bg-white/[0.12] transition-all"
+              >
+                Browse Prompt Gallery
+              </Link>
+            </div>
+          </div>
+
+          {/* Contact */}
+          <div className="mt-8 text-center">
+            <p className="text-slate-500 text-sm">
+              Have suggestions or feedback? We'd love to hear from you at{" "}
+              <a href="mailto:taeshinkim11@gmail.com?subject=PromptBuilder AI Feedback" className="text-indigo-400 hover:text-indigo-300 underline">
+                taeshinkim11@gmail.com
+              </a>
+            </p>
           </div>
         </div>
       </article>

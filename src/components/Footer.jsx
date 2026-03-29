@@ -15,6 +15,11 @@ function Footer() {
                 </Link>
               </li>
               <li>
+                <Link to="/gallery" className="text-sm text-slate-500 hover:text-indigo-400 transition-colors">
+                  Prompt Gallery
+                </Link>
+              </li>
+              <li>
                 <Link to="/about" className="text-sm text-slate-500 hover:text-indigo-400 transition-colors">
                   About Us
                 </Link>
@@ -37,6 +42,14 @@ function Footer() {
                   className="text-sm text-slate-500 hover:text-indigo-400 transition-colors"
                 >
                   GitHub
+                </a>
+              </li>
+              <li>
+                <a
+                  href="mailto:taeshinkim11@gmail.com?subject=PromptBuilder AI Feedback"
+                  className="text-sm text-slate-500 hover:text-indigo-400 transition-colors"
+                >
+                  Send Feedback
                 </a>
               </li>
             </ul>

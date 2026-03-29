@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function HeroSection({ onRandomize }) {
   return (
     <section className="text-center py-8 sm:py-12 animate-fade-in-up">
@@ -14,6 +16,7 @@ function HeroSection({ onRandomize }) {
       </p>
       <div className="flex items-center justify-center gap-3 flex-wrap">
         <button
+          type="button"
           onClick={onRandomize}
           className="px-5 py-2.5 rounded-xl bg-indigo-600 text-white font-semibold text-sm hover:bg-indigo-500 hover:scale-105 transition-all"
         >
@@ -25,6 +28,12 @@ function HeroSection({ onRandomize }) {
         >
           Start Building
         </a>
+        <Link
+          to="/gallery"
+          className="px-5 py-2.5 rounded-xl bg-white/[0.07] text-slate-300 font-medium text-sm hover:bg-white/[0.12] transition-all"
+        >
+          Browse Gallery
+        </Link>
       </div>
       <div className="flex items-center justify-center gap-6 mt-8 text-xs text-slate-500">
         <span className="flex items-center gap-1">

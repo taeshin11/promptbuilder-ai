@@ -20,16 +20,22 @@ function Header() {
         </Link>
         <nav className="flex items-center gap-4" aria-label="Main navigation">
           <Link
-            to="/about"
+            to="/gallery"
             className="text-slate-500 hover:text-slate-300 transition-colors text-sm hidden sm:inline"
           >
-            About
+            Gallery
           </Link>
           <Link
             to="/how-to-use"
             className="text-slate-500 hover:text-slate-300 transition-colors text-sm hidden sm:inline"
           >
             Guide
+          </Link>
+          <Link
+            to="/about"
+            className="text-slate-500 hover:text-slate-300 transition-colors text-sm hidden sm:inline"
+          >
+            About
           </Link>
           <a
             href="https://github.com/taeshin11/promptbuilder-ai"

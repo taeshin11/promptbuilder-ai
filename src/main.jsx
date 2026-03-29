@@ -7,6 +7,7 @@ import Layout from './components/Layout'
 import App from './App.jsx'
 import AboutPage from './pages/AboutPage'
 import HowToUsePage from './pages/HowToUsePage'
+import PromptGalleryPage from './pages/PromptGalleryPage'
 import PrivacyPage from './pages/PrivacyPage'
 import TermsPage from './pages/TermsPage'
 
@@ -19,6 +20,7 @@ createRoot(document.getElementById('root')).render(
             <Route path="/" element={<App />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/how-to-use" element={<HowToUsePage />} />
+            <Route path="/gallery" element={<PromptGalleryPage />} />
             <Route path="/privacy" element={<PrivacyPage />} />
             <Route path="/terms" element={<TermsPage />} />
           </Route>
