@@ -6,6 +6,7 @@ function NegativePrompts({ options, selected, onToggle }) {
   return (
     <section className="rounded-2xl bg-white/[0.03] border border-white/[0.06] overflow-hidden backdrop-blur-sm">
       <button
+        type="button"
         onClick={() => setIsExpanded(!isExpanded)}
         className="w-full px-4 sm:px-6 py-4 flex items-center justify-between hover:bg-white/[0.03] transition-colors"
         aria-expanded={isExpanded}
