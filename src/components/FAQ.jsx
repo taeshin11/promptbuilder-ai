@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLanguage } from "../i18n/LanguageContext";
 
 const faqs = [
   {
@@ -19,7 +20,7 @@ const faqs = [
   },
   {
     q: "Can I save and share my prompts?",
-    a: "Yes! Every prompt you copy is automatically saved to your prompt history (stored locally in your browser). You can also click the share button (🔗) to generate a shareable URL that anyone can open to see your exact prompt configuration.",
+    a: "Yes! Every prompt you copy is automatically saved to your prompt history (stored locally in your browser). You can also click the share button to generate a shareable URL that anyone can open to see your exact prompt configuration.",
   },
   {
     q: "What are negative prompts and why should I use them?",
@@ -36,6 +37,7 @@ const faqs = [
 ];
 
 function FAQ() {
+  const { t } = useLanguage();
   const [openIdx, setOpenIdx] = useState(null);
 
   return (
@@ -44,8 +46,8 @@ function FAQ() {
         <div className="flex items-center gap-3 mb-4">
           <span className="text-2xl" role="img" aria-label="FAQ">❓</span>
           <div>
-            <h2 className="text-lg font-semibold text-white">Frequently Asked Questions</h2>
-            <p className="text-sm text-slate-400 hidden sm:block">Everything you need to know about AI prompt building</p>
+            <h2 className="text-lg font-semibold text-white">{t.faq}</h2>
+            <p className="text-sm text-slate-400 hidden sm:block">{t.faqDesc}</p>
           </div>
         </div>
 

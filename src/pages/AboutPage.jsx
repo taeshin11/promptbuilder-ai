@@ -1,7 +1,9 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
+import { useLanguage } from "../i18n/LanguageContext";
 
 function AboutPage() {
+  const { localePath } = useLanguage();
   return (
     <>
       <Helmet>
@@ -20,7 +22,7 @@ function AboutPage() {
       <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         {/* Breadcrumb */}
         <nav aria-label="Breadcrumb" className="mb-8 text-sm text-slate-500">
-          <Link to="/" className="hover:text-indigo-400 transition-colors">Home</Link>
+          <Link to={localePath("/")} className="hover:text-indigo-400 transition-colors">Home</Link>
           <span className="mx-2">/</span>
           <span className="text-slate-300">About Us</span>
         </nav>
@@ -132,13 +134,13 @@ function AboutPage() {
             <p className="text-slate-400 mb-5">Start building your perfect AI image prompt in seconds — no sign-up required.</p>
             <div className="flex items-center justify-center gap-3 flex-wrap">
               <Link
-                to="/"
+                to={localePath("/")}
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-violet-500 text-white font-semibold hover:from-indigo-400 hover:to-violet-400 transition-all shadow-lg"
               >
                 Open Prompt Builder
               </Link>
               <Link
-                to="/gallery"
+                to={localePath("/gallery")}
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/[0.07] text-slate-300 font-medium hover:bg-white/[0.12] transition-all"
               >
                 Browse Prompt Gallery

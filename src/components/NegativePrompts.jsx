@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useLanguage } from "../i18n/LanguageContext";
 
 function NegativePrompts({ options, selected, onToggle }) {
+  const { t } = useLanguage();
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
@@ -14,12 +16,12 @@ function NegativePrompts({ options, selected, onToggle }) {
         <div className="flex items-center gap-3">
           <span className="text-2xl" role="img" aria-label="Negative prompts">🚫</span>
           <div className="text-left">
-            <h2 className="text-lg font-semibold text-white">Negative Prompts</h2>
-            <p className="text-sm text-slate-400 hidden sm:block">What to exclude from the image</p>
+            <h2 className="text-lg font-semibold text-white">{t.negativePrompts}</h2>
+            <p className="text-sm text-slate-400 hidden sm:block">{t.negativeDesc}</p>
           </div>
           {selected.length > 0 && (
             <span className="ml-2 px-2 py-0.5 rounded-full bg-red-500/20 text-red-300 text-xs font-medium">
-              {selected.length} excluded
+              {selected.length} {t.excluded}
             </span>
           )}
         </div>

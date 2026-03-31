@@ -1,3 +1,5 @@
+import { useLanguage } from "../i18n/LanguageContext";
+
 const versions = [
   { label: "v 7", value: "--v 7" },
   { label: "v 6.1", value: "--v 6.1" },
@@ -7,36 +9,38 @@ const versions = [
   { label: "Niji 5", value: "--niji 5" },
 ];
 
-const stylizePresets = [
-  { label: "Low (50)", value: "--s 50" },
-  { label: "Default (100)", value: "--s 100" },
-  { label: "High (250)", value: "--s 250" },
-  { label: "Very High (750)", value: "--s 750" },
-];
-
-const chaosPresets = [
-  { label: "None", value: "" },
-  { label: "Low (20)", value: "--c 20" },
-  { label: "Medium (50)", value: "--c 50" },
-  { label: "High (80)", value: "--c 80" },
-];
-
 function MidjourneyParams({ version, onVersionChange, stylize, onStylizeChange, chaos, onChaosChange, sref, onSrefChange }) {
+  const { t } = useLanguage();
+
+  const stylizePresets = [
+    { label: `${t.low} (50)`, value: "--s 50" },
+    { label: `${t.default} (100)`, value: "--s 100" },
+    { label: `${t.high} (250)`, value: "--s 250" },
+    { label: `${t.veryHigh} (750)`, value: "--s 750" },
+  ];
+
+  const chaosPresets = [
+    { label: t.none, value: "" },
+    { label: `${t.low} (20)`, value: "--c 20" },
+    { label: `${t.medium} (50)`, value: "--c 50" },
+    { label: `${t.high} (80)`, value: "--c 80" },
+  ];
+
   return (
     <section className="rounded-2xl bg-white/[0.03] border border-white/[0.06] overflow-hidden backdrop-blur-sm">
       <div className="px-4 sm:px-6 py-4">
         <div className="flex items-center gap-3 mb-3">
           <span className="text-2xl" role="img" aria-label="Midjourney parameters">🎨</span>
           <div>
-            <h2 className="text-lg font-semibold text-white">Midjourney Parameters</h2>
-            <p className="text-sm text-slate-400 hidden sm:block">Fine-tune your Midjourney output</p>
+            <h2 className="text-lg font-semibold text-white">{t.mjParams}</h2>
+            <p className="text-sm text-slate-400 hidden sm:block">{t.mjParamsDesc}</p>
           </div>
         </div>
 
         <div className="space-y-3">
           {/* Version */}
           <div>
-            <span className="text-xs text-slate-500 font-medium uppercase tracking-wider mb-1.5 block">Version</span>
+            <span className="text-xs text-slate-500 font-medium uppercase tracking-wider mb-1.5 block">{t.version}</span>
             <div className="flex flex-wrap gap-1.5">
               {versions.map((v) => (
                 <button
@@ -57,7 +61,7 @@ function MidjourneyParams({ version, onVersionChange, stylize, onStylizeChange, 
 
           {/* Stylize */}
           <div>
-            <span className="text-xs text-slate-500 font-medium uppercase tracking-wider mb-1.5 block">Stylize (--s)</span>
+            <span className="text-xs text-slate-500 font-medium uppercase tracking-wider mb-1.5 block">{t.stylize}</span>
             <div className="flex flex-wrap gap-1.5">
               {stylizePresets.map((s) => (
                 <button
@@ -78,7 +82,7 @@ function MidjourneyParams({ version, onVersionChange, stylize, onStylizeChange, 
 
           {/* Chaos */}
           <div>
-            <span className="text-xs text-slate-500 font-medium uppercase tracking-wider mb-1.5 block">Chaos (--c)</span>
+            <span className="text-xs text-slate-500 font-medium uppercase tracking-wider mb-1.5 block">{t.chaos}</span>
             <div className="flex flex-wrap gap-1.5">
               {chaosPresets.map((c) => (
                 <button
@@ -100,12 +104,12 @@ function MidjourneyParams({ version, onVersionChange, stylize, onStylizeChange, 
           {/* Style Reference */}
           <div>
             <label htmlFor="sref-input" className="text-xs text-slate-500 font-medium uppercase tracking-wider mb-1.5 block">
-              Style Reference (--sref)
+              {t.styleRef}
             </label>
             <input
               id="sref-input"
               type="text"
-              placeholder="Paste image URL for style reference..."
+              placeholder={t.styleRefPlaceholder}
               value={sref}
               onChange={(e) => onSrefChange(e.target.value)}
               className="w-full px-3 py-1.5 rounded-lg bg-white/[0.06] border border-white/[0.06] text-white placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-xs"

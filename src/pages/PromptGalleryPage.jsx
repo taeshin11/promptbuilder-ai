@@ -1,5 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
+import { useLanguage } from "../i18n/LanguageContext";
 
 const galleryPrompts = [
   {
@@ -101,6 +102,7 @@ const galleryPrompts = [
 ];
 
 function PromptGalleryPage() {
+  const { t, localePath } = useLanguage();
   const handleCopy = (promptText) => {
     navigator.clipboard.writeText(promptText).catch(() => {
       const textarea = document.createElement("textarea");
@@ -132,9 +134,9 @@ function PromptGalleryPage() {
       <article className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         {/* Breadcrumb with Schema */}
         <nav aria-label="Breadcrumb" className="mb-8 text-sm text-slate-500">
-          <Link to="/" className="hover:text-indigo-400 transition-colors">Home</Link>
+          <Link to={localePath("/")} className="hover:text-indigo-400 transition-colors">{t.home}</Link>
           <span className="mx-2">/</span>
-          <span className="text-slate-300">Prompt Gallery</span>
+          <span className="text-slate-300">{t.promptGallery}</span>
         </nav>
         <script
           type="application/ld+json"
@@ -152,11 +154,10 @@ function PromptGalleryPage() {
 
         <header className="mb-12">
           <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-indigo-300 to-violet-300 bg-clip-text text-transparent mb-4">
-            AI Image Prompt Gallery
+            {t.galleryTitle}
           </h1>
           <p className="text-lg text-slate-400 leading-relaxed max-w-3xl">
-            Browse curated, copy-ready prompts for Midjourney, Stable Diffusion, and DALL-E.
-            Use them as-is or as a starting point for your own creations.
+            {t.galleryDesc}
           </p>
           <div className="flex flex-wrap gap-2 mt-6">
             {categories.map((cat) => (
@@ -188,7 +189,7 @@ function PromptGalleryPage() {
             and uses the correct syntax for that platform.
           </p>
           <p className="mt-4">
-            Want to customize these prompts? Open our <Link to="/" className="text-indigo-400 hover:text-indigo-300 underline">Prompt Builder</Link> to
+            Want to customize these prompts? Open our <Link to={localePath("/")} className="text-indigo-400 hover:text-indigo-300 underline">Prompt Builder</Link> to
             modify any aspect — swap the lighting, change the art style, adjust weights, or add negative prompts. The builder
             automatically formats everything for your chosen platform.
           </p>
@@ -205,13 +206,13 @@ function PromptGalleryPage() {
 
         {/* CTA */}
         <div className="mt-12 p-6 rounded-2xl bg-gradient-to-r from-indigo-500/10 to-violet-500/10 border border-indigo-500/20 text-center">
-          <h3 className="text-xl font-semibold text-white mb-3">Want to Build Your Own Custom Prompts?</h3>
-          <p className="text-slate-400 mb-5">Use our interactive prompt builder with 144+ options across 8 categories.</p>
+          <h3 className="text-xl font-semibold text-white mb-3">{t.buildCustom}</h3>
+          <p className="text-slate-400 mb-5">{t.buildCustomDesc}</p>
           <Link
-            to="/"
+            to={localePath("/")}
             className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-violet-500 text-white font-semibold hover:from-indigo-400 hover:to-violet-400 transition-all shadow-lg"
           >
-            Open Prompt Builder
+            {t.openBuilder}
           </Link>
         </div>
       </article>
@@ -220,6 +221,7 @@ function PromptGalleryPage() {
 }
 
 function GalleryCard({ item, onCopy }) {
+  const { t } = useLanguage();
   const platformColors = {
     Midjourney: "bg-blue-500/20 text-blue-300 border-blue-500/30",
     "Stable Diffusion": "bg-green-500/20 text-green-300 border-green-500/30",
@@ -251,7 +253,7 @@ function GalleryCard({ item, onCopy }) {
           onClick={() => onCopy(item.prompt)}
           className="w-full py-2 rounded-lg bg-indigo-600/80 text-white text-sm font-medium hover:bg-indigo-500 transition-all group-hover:bg-indigo-600"
         >
-          Copy Prompt
+          {t.copyPrompt}
         </button>
       </div>
     </article>

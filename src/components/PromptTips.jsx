@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLanguage } from "../i18n/LanguageContext";
 
 const tips = [
   {
@@ -28,6 +29,7 @@ const tips = [
 ];
 
 function PromptTips() {
+  const { t } = useLanguage();
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
@@ -41,8 +43,8 @@ function PromptTips() {
         <div className="flex items-center gap-3">
           <span className="text-2xl" role="img" aria-label="Tips">💡</span>
           <div className="text-left">
-            <h2 className="text-lg font-semibold text-white">Prompt Writing Tips</h2>
-            <p className="text-sm text-slate-400 hidden sm:block">Learn how to craft better AI image prompts</p>
+            <h2 className="text-lg font-semibold text-white">{t.promptTips}</h2>
+            <p className="text-sm text-slate-400 hidden sm:block">{t.tipsDesc}</p>
           </div>
         </div>
         <svg

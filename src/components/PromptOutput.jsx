@@ -1,6 +1,9 @@
 import { useEffect } from "react";
+import { useLanguage } from "../i18n/LanguageContext";
 
 function PromptOutput({ prompt, copied, onCopy, onReset, onRandomize, onShare, selectionCount, children }) {
+  const { t } = useLanguage();
+
   useEffect(() => {
     function handleKeyDown(e) {
       if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
@@ -23,10 +26,10 @@ function PromptOutput({ prompt, copied, onCopy, onReset, onRandomize, onShare, s
       <div className="rounded-2xl bg-[#151721]/95 border border-white/[0.06] backdrop-blur-md p-4 sm:p-6 shadow-xl">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2 flex-wrap">
-            <h2 className="text-lg font-semibold text-white">Generated Prompt</h2>
+            <h2 className="text-lg font-semibold text-white">{t.generatedPrompt}</h2>
             {selectionCount > 0 && (
               <span className="px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 text-xs font-medium">
-                {selectionCount} selected
+                {selectionCount} {t.selected}
               </span>
             )}
           </div>
@@ -35,8 +38,8 @@ function PromptOutput({ prompt, copied, onCopy, onReset, onRandomize, onShare, s
               type="button"
               onClick={onRandomize}
               className="px-3 py-1.5 rounded-lg text-sm font-medium bg-white/[0.06] text-slate-300 hover:bg-white/[0.1] hover:text-white transition-all hidden sm:inline-flex"
-              aria-label="Generate random prompt (press R)"
-              title="Random (R)"
+              aria-label={t.randomTitle}
+              title={t.randomTitle}
             >
               🎲
             </button>
@@ -45,8 +48,8 @@ function PromptOutput({ prompt, copied, onCopy, onReset, onRandomize, onShare, s
                 type="button"
                 onClick={onShare}
                 className="px-3 py-1.5 rounded-lg text-sm font-medium bg-white/[0.06] text-slate-300 hover:bg-white/[0.1] hover:text-white transition-all hidden sm:inline-flex"
-                aria-label="Share prompt via link"
-                title="Share link"
+                aria-label={t.shareTitle}
+                title={t.shareTitle}
               >
                 🔗
               </button>
@@ -55,9 +58,9 @@ function PromptOutput({ prompt, copied, onCopy, onReset, onRandomize, onShare, s
               type="button"
               onClick={onReset}
               className="px-3 py-1.5 rounded-lg text-sm font-medium bg-white/[0.06] text-slate-300 hover:bg-white/[0.1] hover:text-white transition-all"
-              aria-label="Reset all selections"
+              aria-label={t.reset}
             >
-              Reset
+              {t.reset}
             </button>
             <button
               type="button"
@@ -70,9 +73,9 @@ function PromptOutput({ prompt, copied, onCopy, onReset, onRandomize, onShare, s
                     ? "bg-indigo-600 text-white hover:bg-indigo-500 hover:scale-105"
                     : "bg-white/[0.06] text-slate-500 cursor-not-allowed"
               }`}
-              aria-label={`Copy prompt to clipboard${prompt ? " (Ctrl+Enter)" : ""}`}
+              aria-label={`${t.copy}${prompt ? " (Ctrl+Enter)" : ""}`}
             >
-              {copied ? "Copied!" : "Copy"}
+              {copied ? t.copied : t.copy}
             </button>
           </div>
         </div>
@@ -85,7 +88,7 @@ function PromptOutput({ prompt, copied, onCopy, onReset, onRandomize, onShare, s
             <p className="text-slate-200 whitespace-pre-line">{prompt}</p>
           ) : (
             <p className="text-slate-600 italic">
-              Select options from the categories below to build your AI image prompt...
+              {t.promptPlaceholder}
             </p>
           )}
         </div>
@@ -93,9 +96,9 @@ function PromptOutput({ prompt, copied, onCopy, onReset, onRandomize, onShare, s
           <div>{children}</div>
           {prompt && (
             <div className="flex items-center gap-3">
-              <span className="text-xs text-slate-500">{charCount} chars</span>
+              <span className="text-xs text-slate-500">{charCount} {t.chars}</span>
               <span className="text-xs text-slate-600 hidden sm:inline">
-                Ctrl+Enter to copy &middot; R to randomize
+                {t.ctrlEnterHint}
               </span>
             </div>
           )}

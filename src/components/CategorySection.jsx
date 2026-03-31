@@ -1,15 +1,17 @@
 import { useState } from "react";
-
-const WEIGHT_LEVELS = [
-  { label: "Low", value: 0.7, color: "text-slate-400 bg-slate-500/20" },
-  { label: "Normal", value: 1.0, color: "text-indigo-300 bg-indigo-500/15" },
-  { label: "High", value: 1.3, color: "text-amber-300 bg-amber-500/20" },
-  { label: "Max", value: 1.6, color: "text-red-300 bg-red-500/20" },
-];
+import { useLanguage } from "../i18n/LanguageContext";
 
 function CategorySection({ category, selected, customValue, onSelect, onCustomInput, weight, onWeightChange, defaultExpanded = false }) {
+  const { t } = useLanguage();
   const [isExpanded, setIsExpanded] = useState(defaultExpanded);
   const [showCustom, setShowCustom] = useState(false);
+
+  const WEIGHT_LEVELS = [
+    { label: t.low, value: 0.7, color: "text-slate-400 bg-slate-500/20" },
+    { label: t.normal, value: 1.0, color: "text-indigo-300 bg-indigo-500/15" },
+    { label: t.high, value: 1.3, color: "text-amber-300 bg-amber-500/20" },
+    { label: t.max, value: 1.6, color: "text-red-300 bg-red-500/20" },
+  ];
 
   const hasSelection = selected || customValue?.trim();
   const currentWeight = WEIGHT_LEVELS.find((w) => w.value === weight) || WEIGHT_LEVELS[1];
@@ -83,19 +85,19 @@ function CategorySection({ category, selected, customValue, onSelect, onCustomIn
                   : "border-white/20 text-slate-400 hover:border-white/40 hover:text-white"
               }`}
             >
-              + Custom
+              {t.custom}
             </button>
           </div>
 
           {showCustom && (
             <div className="mt-3">
               <label htmlFor={`custom-${category.id}`} className="sr-only">
-                Custom {category.label}
+                {t.custom} {category.label}
               </label>
               <input
                 id={`custom-${category.id}`}
                 type="text"
-                placeholder={`Type your own ${category.label.toLowerCase()}...`}
+                placeholder={`${t.typeYourOwn} ${category.label.toLowerCase()}...`}
                 value={customValue}
                 onChange={(e) => onCustomInput(category.id, e.target.value)}
                 className="w-full px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm"
@@ -103,10 +105,10 @@ function CategorySection({ category, selected, customValue, onSelect, onCustomIn
             </div>
           )}
 
-          {/* Weight control - only visible when something is selected */}
+          {/* Weight control */}
           {hasSelection && (
             <div className="mt-3 flex items-center gap-2">
-              <span className="text-xs text-slate-500 shrink-0">Emphasis:</span>
+              <span className="text-xs text-slate-500 shrink-0">{t.emphasis}</span>
               <div className="flex gap-1">
                 {WEIGHT_LEVELS.map((w) => (
                   <button

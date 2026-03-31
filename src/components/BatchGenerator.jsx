@@ -1,7 +1,9 @@
 import { useState, useCallback } from "react";
 import { promptCategories } from "../data/promptOptions";
+import { useLanguage } from "../i18n/LanguageContext";
 
-function BatchGenerator({ selections, customInputs, platform, onCopyAll }) {
+function BatchGenerator({ selections, customInputs, platform }) {
+  const { t } = useLanguage();
   const [variations, setVariations] = useState([]);
   const [copiedIdx, setCopiedIdx] = useState(null);
 
@@ -17,14 +19,12 @@ function BatchGenerator({ selections, customInputs, platform, onCopyAll }) {
         const base = custom || selections[cat.id];
 
         if (!base) {
-          // 30% chance to add a random option for empty categories
           if (Math.random() < 0.3) {
             return cat.options[Math.floor(Math.random() * cat.options.length)];
           }
           return null;
         }
 
-        // 40% chance to swap a selected option for a different one in that category
         if (!custom && Math.random() < 0.4) {
           const others = cat.options.filter((o) => o !== base);
           return others[Math.floor(Math.random() * others.length)];
@@ -69,8 +69,8 @@ function BatchGenerator({ selections, customInputs, platform, onCopyAll }) {
           <div className="flex items-center gap-3">
             <span className="text-2xl" role="img" aria-label="Batch generator">⚡</span>
             <div>
-              <h2 className="text-lg font-semibold text-white">Batch Variations</h2>
-              <p className="text-sm text-slate-400 hidden sm:block">Generate 5 variations based on your selections</p>
+              <h2 className="text-lg font-semibold text-white">{t.batchVariations}</h2>
+              <p className="text-sm text-slate-400 hidden sm:block">{t.batchDesc}</p>
             </div>
           </div>
           <div className="flex gap-2">
@@ -84,7 +84,7 @@ function BatchGenerator({ selections, customInputs, platform, onCopyAll }) {
                     : "bg-white/[0.06] text-slate-300 hover:bg-white/[0.1]"
                 }`}
               >
-                {copiedIdx === -1 ? "Copied All!" : "Copy All"}
+                {copiedIdx === -1 ? t.copiedAll : t.copyAll}
               </button>
             )}
             <button
@@ -92,7 +92,7 @@ function BatchGenerator({ selections, customInputs, platform, onCopyAll }) {
               onClick={generateVariations}
               className="px-4 py-1.5 rounded-lg text-sm font-semibold bg-indigo-600 text-white hover:bg-indigo-500 transition-all"
             >
-              {variations.length > 0 ? "Regenerate" : "Generate 5 Variations"}
+              {variations.length > 0 ? t.regenerate : t.generate5}
             </button>
           </div>
         </div>
@@ -115,7 +115,7 @@ function BatchGenerator({ selections, customInputs, platform, onCopyAll }) {
                       : "bg-indigo-500/15 text-indigo-300 opacity-0 group-hover:opacity-100 hover:bg-indigo-500/30"
                   }`}
                 >
-                  {copiedIdx === i ? "Copied!" : "Copy"}
+                  {copiedIdx === i ? t.copied : t.copy}
                 </button>
               </div>
             ))}

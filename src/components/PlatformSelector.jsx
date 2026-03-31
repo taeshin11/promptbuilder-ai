@@ -1,28 +1,17 @@
+import { useLanguage } from "../i18n/LanguageContext";
+
 const platforms = [
-  {
-    id: "midjourney",
-    name: "Midjourney",
-    icon: "🎨",
-    description: "Uses --ar, --v, --no flags",
-  },
-  {
-    id: "stable-diffusion",
-    name: "Stable Diffusion",
-    icon: "🖼️",
-    description: "Weighted tokens with (keyword:1.3)",
-  },
-  {
-    id: "dall-e",
-    name: "DALL-E",
-    icon: "🤖",
-    description: "Natural language descriptions",
-  },
+  { id: "midjourney", name: "Midjourney", icon: "🎨", descKey: "mjDesc" },
+  { id: "stable-diffusion", name: "Stable Diffusion", icon: "🖼️", descKey: "sdDesc" },
+  { id: "dall-e", name: "DALL-E", icon: "🤖", descKey: "dalleDesc" },
 ];
 
 function PlatformSelector({ selected, onSelect }) {
+  const { t } = useLanguage();
+
   return (
     <div className="flex items-center gap-2 flex-wrap">
-      <span className="text-xs text-slate-500 font-medium uppercase tracking-wider">Format for:</span>
+      <span className="text-xs text-slate-500 font-medium uppercase tracking-wider">{t.formatFor}</span>
       {platforms.map((platform) => (
         <button
           type="button"
@@ -33,7 +22,7 @@ function PlatformSelector({ selected, onSelect }) {
               ? "bg-indigo-500/20 text-indigo-300 border border-indigo-500/30"
               : "bg-white/[0.06] text-slate-400 hover:bg-white/[0.1] hover:text-white"
           }`}
-          title={platform.description}
+          title={t[platform.descKey]}
         >
           <span>{platform.icon}</span>
           <span>{platform.name}</span>

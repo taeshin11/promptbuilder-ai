@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useLanguage } from "../i18n/LanguageContext";
 
 function FeedbackButton() {
+  const { t } = useLanguage();
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -10,7 +12,7 @@ function FeedbackButton() {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       aria-label="Send feedback via email"
-      title="Send us feedback"
+      title={t.sendFeedbackBtn}
     >
       <svg
         className="w-4 h-4 shrink-0"
@@ -26,7 +28,7 @@ function FeedbackButton() {
           isHovered ? "max-w-[120px] opacity-100" : "max-w-0 opacity-0"
         }`}
       >
-        Send Feedback
+        {t.sendFeedbackBtn}
       </span>
     </a>
   );

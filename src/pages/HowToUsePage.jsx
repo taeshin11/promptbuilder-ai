@@ -1,7 +1,9 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
+import { useLanguage } from "../i18n/LanguageContext";
 
 function HowToUsePage() {
+  const { localePath } = useLanguage();
   return (
     <>
       <Helmet>
@@ -84,7 +86,7 @@ function HowToUsePage() {
       <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         {/* Breadcrumb */}
         <nav aria-label="Breadcrumb" className="mb-8 text-sm text-slate-500">
-          <Link to="/" className="hover:text-indigo-400 transition-colors">Home</Link>
+          <Link to={localePath("/")} className="hover:text-indigo-400 transition-colors">Home</Link>
           <span className="mx-2">/</span>
           <span className="text-slate-300">How to Use & FAQ</span>
         </nav>
@@ -301,7 +303,7 @@ function HowToUsePage() {
                     Yes. PromptBuilder AI is a client-side application that runs entirely in your web browser. All data — including your prompt selections, history, and preferences — is stored locally on your device using the browser's <code className="bg-white/10 px-1 rounded text-sm">localStorage</code> API. No data is transmitted to any external server or third-party service.
                   </p>
                   <p className="mt-3">
-                    The only external requests made by the application are for displaying visitor count badges (via hits.sh) and loading advertisement scripts. These services do not have access to your prompts or usage data. For full details, please review our <Link to="/privacy" className="text-indigo-400 hover:text-indigo-300 underline">Privacy Policy</Link>.
+                    The only external requests made by the application are for displaying visitor count badges (via hits.sh) and loading advertisement scripts. These services do not have access to your prompts or usage data. For full details, please review our <Link to={localePath("/privacy")} className="text-indigo-400 hover:text-indigo-300 underline">Privacy Policy</Link>.
                   </p>
                 </div>
               </details>

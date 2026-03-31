@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect, useMemo } from "react";
 import { Helmet } from "react-helmet-async";
+import { useLanguage } from "./i18n/LanguageContext";
 import HeroSection from "./components/HeroSection";
 import TemplateSelector from "./components/TemplateSelector";
 import PlatformSelector from "./components/PlatformSelector";
@@ -264,11 +265,14 @@ function App() {
 
   const selectionCount = Object.keys(selections).length + Object.values(customInputs).filter((v) => v?.trim()).length;
 
+  const { t, lang } = useLanguage();
+
   return (
     <>
       <Helmet>
-        <title>PromptBuilder AI - Free AI Image Prompt Generator for Midjourney & Stable Diffusion</title>
-        <meta name="description" content="Free AI image prompt generator. Build perfect prompts for Midjourney, Stable Diffusion, and DALL-E with an intuitive visual builder. No sign-up required." />
+        <html lang={lang} />
+        <title>{t.seoTitle}</title>
+        <meta name="description" content={t.seoDesc} />
         <meta name="keywords" content="AI image prompt generator, Midjourney prompt builder, Stable Diffusion prompts, DALL-E prompt tool, free AI art generator, prompt engineering tool" />
       </Helmet>
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
