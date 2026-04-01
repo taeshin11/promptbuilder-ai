@@ -1,7 +1,9 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
+import { useLanguage } from "../i18n/LanguageContext";
 
 function TermsPage() {
+  const { localePath } = useLanguage();
   return (
     <>
       <Helmet>
@@ -15,12 +17,19 @@ function TermsPage() {
           content="PromptBuilder AI terms of service, terms and conditions, AI tool terms, free tool terms of use"
         />
         <link rel="canonical" href="https://promptbuilder-ai.vercel.app/terms" />
+        <meta property="og:title" content="Terms of Service - PromptBuilder AI" />
+        <meta property="og:description" content="Terms of Service for PromptBuilder AI. Read the terms for using our free AI image prompt generator." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://promptbuilder-ai.vercel.app/terms" />
+        <meta property="og:image" content="https://promptbuilder-ai.vercel.app/og-image.svg" />
+        <meta property="og:site_name" content="PromptBuilder AI" />
+        <meta name="twitter:card" content="summary" />
       </Helmet>
 
       <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         {/* Breadcrumb */}
         <nav aria-label="Breadcrumb" className="mb-8 text-sm text-slate-500">
-          <Link to="/" className="hover:text-indigo-400 transition-colors">Home</Link>
+          <Link to={localePath("/")} className="hover:text-indigo-400 transition-colors">Home</Link>
           <span className="mx-2">/</span>
           <span className="text-slate-300">Terms of Service</span>
         </nav>

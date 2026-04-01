@@ -17,6 +17,15 @@ function AboutPage() {
           content="about PromptBuilder AI, AI prompt generator, AI art tool, Midjourney prompt builder, Stable Diffusion prompt tool, free AI productivity tool"
         />
         <link rel="canonical" href="https://promptbuilder-ai.vercel.app/about" />
+        <meta property="og:title" content="About Us - PromptBuilder AI" />
+        <meta property="og:description" content="Learn about PromptBuilder AI, the free productivity tool that helps artists and creators craft perfect prompts for Midjourney, Stable Diffusion, and DALL-E." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://promptbuilder-ai.vercel.app/about" />
+        <meta property="og:image" content="https://promptbuilder-ai.vercel.app/og-image.svg" />
+        <meta property="og:site_name" content="PromptBuilder AI" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="About Us - PromptBuilder AI" />
+        <meta name="twitter:description" content="Learn about PromptBuilder AI, the free AI image prompt generator for Midjourney, Stable Diffusion, and DALL-E." />
       </Helmet>
 
       <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">

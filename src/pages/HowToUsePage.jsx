@@ -17,6 +17,15 @@ function HowToUsePage() {
           content="how to write AI prompts, Midjourney prompt guide, Stable Diffusion tutorial, AI art prompt tips, prompt engineering guide, DALL-E prompt FAQ"
         />
         <link rel="canonical" href="https://promptbuilder-ai.vercel.app/how-to-use" />
+        <meta property="og:title" content="How to Use PromptBuilder AI - Step-by-Step Guide & FAQ" />
+        <meta property="og:description" content="Learn how to craft the perfect AI image prompt in 3 easy steps for Midjourney, Stable Diffusion, and DALL-E." />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content="https://promptbuilder-ai.vercel.app/how-to-use" />
+        <meta property="og:image" content="https://promptbuilder-ai.vercel.app/og-image.svg" />
+        <meta property="og:site_name" content="PromptBuilder AI" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="How to Use PromptBuilder AI - Guide & FAQ" />
+        <meta name="twitter:description" content="Learn how to craft AI image prompts in 3 easy steps for Midjourney, Stable Diffusion, and DALL-E." />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -315,7 +324,7 @@ function HowToUsePage() {
             <h3 className="text-xl font-semibold text-white mb-3">Start Building Your Prompt Now</h3>
             <p className="text-slate-400 mb-5">Put these tips into practice — open the builder and create your first masterpiece.</p>
             <Link
-              to="/"
+              to={localePath("/")}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-violet-500 text-white font-semibold hover:from-indigo-400 hover:to-violet-400 transition-all shadow-lg"
             >
               Open Prompt Builder

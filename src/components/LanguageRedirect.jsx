@@ -13,7 +13,7 @@ function LanguageRedirect() {
 
     // Check if the path starts with a known language code
     const segments = location.pathname.split("/").filter(Boolean);
-    const knownLangs = ["ko", "ja", "zh", "es"];
+    const knownLangs = ["ko", "ja", "zh", "es", "de", "fr", "pt"];
     if (segments.length > 0 && knownLangs.includes(segments[0])) return;
 
     const browserLang = detectBrowserLanguage();

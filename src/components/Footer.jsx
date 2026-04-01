@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useLanguage } from "../i18n/LanguageContext";
+import SocialShareButtons from "./SocialShareButtons";
 
 function Footer() {
   const { t, localePath } = useLanguage();
@@ -82,12 +83,17 @@ function Footer() {
           </div>
         </div>
 
+        {/* Social sharing */}
+        <div className="flex justify-center mb-6">
+          <SocialShareButtons />
+        </div>
+
         {/* Divider */}
         <div className="border-t border-white/[0.06] pt-5">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="text-center sm:text-left">
               <p className="text-sm text-slate-400">
-                &copy; {new Date().getFullYear()} {t.footerCopy}
+                &copy; 2025 {t.footerCopy}
               </p>
               <p className="text-xs text-slate-600 mt-1">
                 {t.footerPlatforms}

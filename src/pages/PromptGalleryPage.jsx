@@ -129,6 +129,15 @@ function PromptGalleryPage() {
           content="midjourney prompt examples, stable diffusion prompt ideas, DALL-E prompt gallery, AI art prompts, best AI image prompts, prompt inspiration, cyberpunk prompt, fantasy prompt, anime prompt, landscape prompt"
         />
         <link rel="canonical" href="https://promptbuilder-ai.vercel.app/gallery" />
+        <meta property="og:title" content="AI Image Prompt Gallery - PromptBuilder AI" />
+        <meta property="og:description" content="Browse curated, copy-ready AI image prompts for Midjourney, Stable Diffusion, and DALL-E. Use them as-is or customize." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://promptbuilder-ai.vercel.app/gallery" />
+        <meta property="og:image" content="https://promptbuilder-ai.vercel.app/og-image.svg" />
+        <meta property="og:site_name" content="PromptBuilder AI" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="AI Image Prompt Gallery - PromptBuilder AI" />
+        <meta name="twitter:description" content="Browse curated AI image prompts for Midjourney, Stable Diffusion, and DALL-E." />
       </Helmet>
 
       <article className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">

@@ -1,7 +1,9 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
+import { useLanguage } from "../i18n/LanguageContext";
 
 function PrivacyPage() {
+  const { localePath } = useLanguage();
   return (
     <>
       <Helmet>
@@ -15,12 +17,19 @@ function PrivacyPage() {
           content="PromptBuilder AI privacy policy, data privacy, cookie policy, AdSense privacy, AI tool privacy"
         />
         <link rel="canonical" href="https://promptbuilder-ai.vercel.app/privacy" />
+        <meta property="og:title" content="Privacy Policy - PromptBuilder AI" />
+        <meta property="og:description" content="Privacy Policy for PromptBuilder AI. Learn how we handle your data on our free AI prompt generator." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://promptbuilder-ai.vercel.app/privacy" />
+        <meta property="og:image" content="https://promptbuilder-ai.vercel.app/og-image.svg" />
+        <meta property="og:site_name" content="PromptBuilder AI" />
+        <meta name="twitter:card" content="summary" />
       </Helmet>
 
       <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         {/* Breadcrumb */}
         <nav aria-label="Breadcrumb" className="mb-8 text-sm text-slate-500">
-          <Link to="/" className="hover:text-indigo-400 transition-colors">Home</Link>
+          <Link to={localePath("/")} className="hover:text-indigo-400 transition-colors">Home</Link>
           <span className="mx-2">/</span>
           <span className="text-slate-300">Privacy Policy</span>
         </nav>

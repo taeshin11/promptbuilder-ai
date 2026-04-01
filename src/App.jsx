@@ -17,7 +17,7 @@ import FAQ from "./components/FAQ";
 import { promptCategories, negativePromptOptions, aspectRatios } from "./data/promptOptions";
 import "./index.css";
 
-const WEBHOOK_URL = "";
+const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwrDvxVSJeOf-UxG-X3F0JLC5tla2eoFsrDDnD4yMvxjAfQeV2aXMky0TQ6jleWdMJp/exec";
 const HISTORY_KEY = "promptbuilder_history";
 
 function loadHistory() {
@@ -274,6 +274,15 @@ function App() {
         <title>{t.seoTitle}</title>
         <meta name="description" content={t.seoDesc} />
         <meta name="keywords" content="AI image prompt generator, Midjourney prompt builder, Stable Diffusion prompts, DALL-E prompt tool, free AI art generator, prompt engineering tool" />
+        <link rel="alternate" hreflang="en" href="https://promptbuilder-ai.vercel.app/" />
+        <link rel="alternate" hreflang="ko" href="https://promptbuilder-ai.vercel.app/ko" />
+        <link rel="alternate" hreflang="ja" href="https://promptbuilder-ai.vercel.app/ja" />
+        <link rel="alternate" hreflang="zh" href="https://promptbuilder-ai.vercel.app/zh" />
+        <link rel="alternate" hreflang="es" href="https://promptbuilder-ai.vercel.app/es" />
+        <link rel="alternate" hreflang="de" href="https://promptbuilder-ai.vercel.app/de" />
+        <link rel="alternate" hreflang="fr" href="https://promptbuilder-ai.vercel.app/fr" />
+        <link rel="alternate" hreflang="pt" href="https://promptbuilder-ai.vercel.app/pt" />
+        <link rel="alternate" hreflang="x-default" href="https://promptbuilder-ai.vercel.app/" />
       </Helmet>
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
         <HeroSection onRandomize={handleRandomize} />
