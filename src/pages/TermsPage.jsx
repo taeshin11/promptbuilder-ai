@@ -38,7 +38,7 @@ function TermsPage() {
           <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-indigo-300 to-violet-300 bg-clip-text text-transparent mb-4">
             Terms of Service
           </h1>
-          <p className="text-sm text-slate-500">Last updated: March 30, 2026</p>
+          <p className="text-sm text-slate-500">Last updated: March 30, 2025</p>
         </header>
 
         <div className="prose prose-invert max-w-none space-y-8 text-slate-300 leading-relaxed">

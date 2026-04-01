@@ -1,7 +1,14 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npx vite:*)"
+      "Bash(npx vite:*)",
+      "WebFetch(domain:promptbuilder-ai.vercel.app)",
+      "Bash(find /c/MakingApps/PromptBuilder -name .env* -o -name *.env)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(curl -s http://localhost:5174/)",
+      "Bash(npm run:*)"
     ]
   }
 }
